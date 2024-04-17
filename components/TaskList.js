@@ -94,15 +94,19 @@ import {
   ScrollView,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+// import { useTaskContext } from "../store/TaskContext";
+import { useTaskContext } from "../store/TaskContext";
 
 const { width } = Dimensions.get("window");
-
+// const { dispatch } = useTaskContext();
 const TaskList = ({
+  tasks,
   handleTaskOptionPress,
   handleAddToFavorites,
   favorites,
 }) => {
-  const [tasks, setTasks] = useState([]);
+  console.log("tasklist", tasks);
+  // const [tasks, setTasks] = useState([]);
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -116,21 +120,21 @@ const TaskList = ({
   //   fetchData();
   // }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://10.0.2.2:3000/tasks");
-        const data = await response.json();
-        console.log("initially fetched tasks", data);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch("http://10.0.2.2:3000/tasks");
+  //       const data = await response.json();
+  //       console.log("initially fetched tasks", data);
+  //       // dispatch({ type: "SET_TASKS", payload: { tasks: data } });
+  //       setTasks(data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-        setTasks(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

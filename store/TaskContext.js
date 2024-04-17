@@ -43,7 +43,7 @@ export const TaskProvider = ({ children }) => {
           throw new Error("Failed to fetch tasks");
         }
         const data = await response.json();
-        // console.log(data);
+        console.log("initially fetched", data);
         dispatch({ type: "SET_TASKS", payload: { tasks: data } });
         // console.log("use", data.tasks);
       } catch (error) {

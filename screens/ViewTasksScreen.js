@@ -9,7 +9,7 @@ import { FontAwesome } from "@expo/vector-icons"; // Import FontAwesome icons
 
 export default function ViewTasksScreen() {
   const { state, dispatch } = useTaskContext();
-  const { tasks } = state;
+  // const { tasks } = state;
   const [selectedTaskIndex, setSelectedTaskIndex] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation(); // Hook to access navigation
@@ -34,7 +34,7 @@ export default function ViewTasksScreen() {
     // console.log(tasks);
     try {
       // Check if the index is valid
-      if (index < 0 || index >= tasks.length) {
+      if (index < 0 || index >= state.tasks.length) {
         throw new Error("Invalid task index");
       }
 
@@ -92,6 +92,7 @@ export default function ViewTasksScreen() {
   return (
     <View style={styles.container}>
       <Header title="View Tasks" />
+      {console.log("tasksscreen", state.tasks)}
       <View style={styles.content}>
         <Text style={styles.title}>Tasks</Text>
         {/* {console.log("hi", state.tasks)} */}
@@ -99,7 +100,7 @@ export default function ViewTasksScreen() {
           <Text>No tasks available</Text>
         ) : (
           <TaskList
-            tasks={tasks}
+            tasks={state.tasks}
             handleTaskOptionPress={handleTaskOptionPress}
             handleDeleteTask={handleDeleteTask} // Pass the handleDeleteTask function
             handleAddToFavorites={handleAddToFavorites}
