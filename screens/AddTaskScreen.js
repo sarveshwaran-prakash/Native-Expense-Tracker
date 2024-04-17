@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
+import { useTaskContext } from "../store/TaskContext";
 
-export default function AddTaskScreen({ navigation }) {
+export default function AddTaskScreen() {
+  const { dispatch } = useTaskContext();
   const [task, setTask] = useState("");
-  const [tasks, setTasks] = useState([]);
 
   const handleAddTask = () => {
-    const updatedTasks = [...tasks, task];
-    setTasks(updatedTasks);
+    dispatch({ type: "ADD_TASK", payload: task });
     setTask("");
-    navigation.navigate("View Tasks", { tasks: updatedTasks }); // Pass updatedTasks to ViewTasksScreen
   };
 
   return (

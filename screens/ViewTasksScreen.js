@@ -1,23 +1,20 @@
 import React from "react";
 import { View, Text, Button, StyleSheet, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useTaskContext } from "../store/TaskContext";
 
-export default function ViewTasksScreen({ route }) {
-  const { tasks } = route.params || { tasks: [] }; // Ensure tasks is initialized to an empty array if not provided
-  const navigation = useNavigation();
+export default function ViewTasksScreen() {
+  const { state, dispatch } = useTaskContext();
+  const { tasks } = state;
 
   const handleDeleteTask = (index) => {
     Alert.alert("Delete Task", "Are you sure you want to delete this task?", [
       {
         text: "No",
-        // onPress: () => console.log("Cancel Pressed"),
       },
       {
         text: "Yes",
         onPress: () => {
-          const updatedTasks = [...tasks];
-          updatedTasks.splice(index, 1);
-          navigation.setParams({ tasks: updatedTasks }); // Update tasks in the navigation params
+          dispatch({ type: "DELETE_TASK", payload: index });
         },
       },
     ]);
