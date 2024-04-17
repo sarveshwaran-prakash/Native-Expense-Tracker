@@ -145,6 +145,11 @@ const TaskList = ({
               {/* {task.todo} */}
               {task.title}
             </Text>
+            {task.description && (
+              <Text numberOfLines={1} style={styles.taskDescription}>
+                {task.description}
+              </Text>
+            )}
           </View>
           <TouchableOpacity onPress={() => handleTaskOptionPress(task.id)}>
             <Text style={styles.optionText}>Options</Text>
@@ -187,6 +192,10 @@ const styles = StyleSheet.create({
   taskTitle: {
     fontWeight: "bold",
     marginBottom: 5,
+  },
+  taskDescription: {
+    fontSize: 14,
+    color: "gray",
   },
   optionText: {
     marginRight: 10,
