@@ -16,10 +16,10 @@ const taskReducer = (state, action) => {
       };
     case "DELETE_TASK":
       return {
-        ...state,
-        tasks: state.tasks.filter((_, index) => index !== action.payload),
         // ...state,
-        // tasks: state.tasks.filter((task) => task.id !== action.payload),
+        // tasks: state.tasks.filter((_, index) => index !== action.payload),
+        ...state,
+        tasks: state.tasks.filter((task) => task.id !== action.payload),
       };
     case "SET_TASKS":
       return {
