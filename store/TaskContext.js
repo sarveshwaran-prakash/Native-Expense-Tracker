@@ -9,6 +9,7 @@ const initialState = {
 const taskReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TASK":
+      console.log("dispatch add", action.payload);
       return {
         ...state,
         tasks: [...state.tasks, action.payload],
@@ -34,36 +35,24 @@ const taskReducer = (state, action) => {
 export const TaskProvider = ({ children }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
 
-  // useEffect(() => {
-  //   const fetchTasks = async () => {
-  //     try {
-  //       console.log("hi");
-  //       const response = await fetch("http://10.0.2.2:3000/tasks"); // Adjust the URL to your API endpoint
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch tasks");
-  //       }
-  //       const data = await response.json();
-  //       dispatch({ type: "SET_TASKS", payload: { tasks: data.tasks } });
-  //       console.log(data.tasks);
-  //     } catch (error) {
-  //       console.error("Error fetching tasks:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await fetch("http://10.0.2.2:3000/tasks"); // Adjust the URL to your API endpoint
+        if (!response.ok) {
+          throw new Error("Failed to fetch tasks");
+        }
+        const data = await response.json();
+        // console.log(data);
+        dispatch({ type: "SET_TASKS", payload: { tasks: data } });
+        // console.log("use", data.tasks);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    };
 
-  //   fetchTasks();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchTasks = async () => {
-  //     try {
-  //       const response = await axios.get(`${BASE_URL}/{state.username}`);
-  //       dispatch({ type: "FETCH_TASKS", payload: response.data });
-  //     } catch (error) {
-  //       console.error("Error fetching tasks:", error.message);
-  //     }
-  //   };
-  //   fetchTasks();
-  // }, []);
+    fetchTasks();
+  }, []);
 
   return (
     <TaskContext.Provider value={{ state, dispatch }}>

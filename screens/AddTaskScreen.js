@@ -20,7 +20,9 @@ export default function AddTaskScreen() {
       if (!response.ok) {
         throw new Error("Failed to add task");
       }
+
       const data = await response.json();
+      console.log("added task", data);
       dispatch({ type: "ADD_TASK", payload: data });
       setModalVisible(false);
     } catch (error) {

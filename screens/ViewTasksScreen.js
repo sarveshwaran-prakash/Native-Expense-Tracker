@@ -31,7 +31,7 @@ export default function ViewTasksScreen() {
   //   ]);
   // };
   const handleDeleteTask = async (index) => {
-    console.log(index);
+    // console.log(tasks);
     try {
       // Check if the index is valid
       if (index < 0 || index >= tasks.length) {
@@ -94,7 +94,7 @@ export default function ViewTasksScreen() {
       <Header title="View Tasks" />
       <View style={styles.content}>
         <Text style={styles.title}>Tasks</Text>
-        {console.log("hi", state.tasks)}
+        {/* {console.log("hi", state.tasks)} */}
         {state.tasks.length === 0 ? (
           <Text>No tasks available</Text>
         ) : (

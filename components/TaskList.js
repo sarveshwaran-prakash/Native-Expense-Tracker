@@ -121,7 +121,7 @@ const TaskList = ({
       try {
         const response = await fetch("http://10.0.2.2:3000/tasks");
         const data = await response.json();
-        console.log("tasks", data);
+        console.log("initially fetched tasks", data);
 
         setTasks(data);
       } catch (error) {
