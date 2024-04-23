@@ -10,13 +10,13 @@ describe("Header component", () => {
     expect(titleElement).toBeDefined();
   });
 
-  test("has correct styles", () => {
-    const title = "My Todo App";
-    const { getByTestId } = render(<Header title={title} />);
-    const headerContainer = getByTestId("header-container");
-    expect(headerContainer).toHaveStyle({
-      //   marginTop: 40,
-      //   backgroundColor: "grey",
-    });
-  });
+  //   test("has correct styles", () => {
+  //     const title = "My Todo App";
+  //     const { getByTestId } = render(<Header title={title} />);
+  //     const headerContainer = getByTestId("header-container");
+  //     expect(headerContainer).toHaveStyle({
+  //       //   marginTop: 40,
+  //       //   backgroundColor: "grey",
+  //     });
+  //   });
 });

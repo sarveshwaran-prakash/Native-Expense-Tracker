@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`State Provider snapshot 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "grey",
+      "height": 60,
+      "justifyContent": "center",
+      "marginTop": 40,
+      "width": "100%",
+    }
+  }
+  testID="header-container"
+>
+  <Text
+    style={
+      {
+        "color": "white",
+        "fontSize": 20,
+        "fontWeight": "bold",
+      }
+    }
+  />
+</View>
+`;
