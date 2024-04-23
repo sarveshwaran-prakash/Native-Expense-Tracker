@@ -1,37 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { useTaskContext } from "../store/TaskContext";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import TaskModal from "../modals/TaskModal";
 import TaskList from "../components/TaskList"; // Import TaskList component
-import { FontAwesome } from "@expo/vector-icons"; // Import FontAwesome icons
 
 export default function ViewTasksScreen() {
   const { state, dispatch } = useTaskContext();
-  // const { tasks } = state;
   const [selectedTaskIndex, setSelectedTaskIndex] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation(); // Hook to access navigation
-  const [favorites, setFavorites] = useState([]);
 
-  // const handleDeleteTask = (index) => {
-  //   Alert.alert("Delete Task", "Are you sure you want to delete this task?", [
-  //     {
-  //       text: "No",
-  //       style: "cancel",
-  //     },
-  //     {
-  //       text: "Yes",
-  //       onPress: () => {
-  //         dispatch({ type: "DELETE_TASK", payload: index });
-  //         setModalVisible(false); // Close the modal after deleting task
-  //       },
-  //     },
-  //   ]);
-  // };
   const handleDeleteTask = async (index) => {
-    // console.log(tasks);
     try {
       // Check if the index is valid
       if (index < 0 || index >= state.tasks.length) {
@@ -67,35 +48,12 @@ export default function ViewTasksScreen() {
     setModalVisible(true);
   };
 
-  const handleAddToFavorites = (index) => {
-    const task = tasks[index];
-    const newTasks = [...tasks];
-    const isFavorite = favorites.includes(task);
-
-    if (isFavorite) {
-      // Remove task from favorites
-      const updatedFavorites = favorites.filter(
-        (favoriteTask) => favoriteTask !== task
-      );
-      setFavorites(updatedFavorites);
-    } else {
-      // Add task to favorites
-      setFavorites([task, ...favorites]);
-    }
-
-    // Move the task to the top
-    newTasks.splice(index, 1);
-    newTasks.unshift(task);
-    dispatch({ type: "SET_TASKS", payload: newTasks });
-  };
-
   return (
     <View style={styles.container}>
       <Header title="View Tasks" />
       {console.log("tasksscreen", state.tasks)}
       <View style={styles.content}>
         <Text style={styles.title}>Tasks</Text>
-        {/* {console.log("hi", state.tasks)} */}
         {state.tasks.length === 0 ? (
           <Text>No tasks available</Text>
         ) : (
@@ -103,8 +61,6 @@ export default function ViewTasksScreen() {
             tasks={state.tasks}
             handleTaskOptionPress={handleTaskOptionPress}
             handleDeleteTask={handleDeleteTask} // Pass the handleDeleteTask function
-            handleAddToFavorites={handleAddToFavorites}
-            favorites={favorites}
           />
         )}
       </View>

@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import AddTaskScreen from "./screens/AddTaskScreen";
 import ViewTasksScreen from "./screens/ViewTasksScreen";
-import FavoritesScreen from "./screens/FavoritesScreen"; // Import FavoritesScreen
 import { TaskProvider } from "./store/TaskContext";
 import { Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"; // for FontAwesome icons
@@ -32,16 +31,6 @@ export default function App() {
               tabBarLabel: <Text>VIEW TASKS</Text>,
               tabBarIcon: ({ color }) => (
                 <Icon name="list" color={color} size={26} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Favorites"
-            component={FavoritesScreen}
-            options={{
-              tabBarLabel: <Text>FAVORITES</Text>,
-              tabBarIcon: ({ color }) => (
-                <Icon name="heart" color={color} size={26} />
               ),
             }}
           />
