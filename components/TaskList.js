@@ -11,6 +11,10 @@ import { FontAwesome } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 const TaskList = ({ tasks, handleTaskOptionPress }) => {
+  useEffect(() => {
+    // Log tasks whenever tasks change for debugging
+    console.log("Updated tasks:", tasks);
+  }, [tasks]);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {tasks.map((task) => (

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { useTaskContext } from "../store/TaskContext";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import TaskModal from "../modals/TaskModal";
-import TaskList from "../components/TaskList"; // Import TaskList component
+import TaskList from "../components/TaskList";
 
 export default function ViewTasksScreen() {
   const { state, dispatch } = useTaskContext();
@@ -28,37 +28,6 @@ export default function ViewTasksScreen() {
       console.error("Error deleting task:", error);
     }
   };
-
-  // const handleEditTask = async (editedTask, editedDescription) => {
-  //   try {
-  //     if (!selectedTask) {
-  //       throw new Error("Task not found");
-  //     }
-
-  //     const updatedTask = { ...selectedTask, title: editedTask, description: editedDescription };
-
-  //     const response = await fetch(
-  //       `http://10.0.2.2:3000/tasks/${selectedTask.id}`,
-  //       {
-  //         method: "PUT",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(updatedTask),
-  //       }
-  //     );
-
-  //     if (response.ok) {
-  //       dispatch({ type: "UPDATE_TASK", payload: updatedTask }); // Dispatch action to update task in state
-  //       setModalVisible(false);
-  //     } else {
-  //       throw new Error("Failed to update task");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error updating task:", error.message);
-  //     Alert.alert("Error", "Failed to update task. Please try again later.");
-  //   }
-  // };
 
   const handleEditTask = async (editedTask, editedDescription) => {
     try {
@@ -84,7 +53,7 @@ export default function ViewTasksScreen() {
       );
 
       if (response.ok) {
-        dispatch({ type: "UPDATE_TASK", payload: updatedTask }); // Dispatch action to update task in state
+        dispatch({ type: "UPDATE_TASK", payload: updatedTask });
         setModalVisible(false);
       } else {
         throw new Error("Failed to update task");
