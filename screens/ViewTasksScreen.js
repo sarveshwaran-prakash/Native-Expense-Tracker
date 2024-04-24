@@ -74,7 +74,11 @@ export default function ViewTasksScreen() {
       );
 
       if (response.ok) {
-        dispatch({ type: "UPDATE_TASK", payload: updatedTask });
+        // Update task state with the edited task
+        const updatedTasks = state.tasks.map((task) =>
+          task.id === selectedTask.id ? updatedTask : task
+        );
+        dispatch({ type: "SET_TASKS", payload: { tasks: updatedTasks } });
         setModalVisible(false);
       } else {
         throw new Error("Failed to update task");
