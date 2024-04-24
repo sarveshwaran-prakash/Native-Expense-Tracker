@@ -24,7 +24,7 @@ export default function TaskInputModal({ visible, onClose, onAddTask }) {
 
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={visible}
       onRequestClose={onClose}

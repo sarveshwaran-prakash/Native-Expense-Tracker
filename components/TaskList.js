@@ -7,7 +7,6 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 const TaskList = ({ tasks, handleTaskOptionPress }) => {

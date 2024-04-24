@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Button, StyleSheet, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Button, StyleSheet, Text, Animated } from "react-native";
 import { useTaskContext } from "../store/TaskContext";
 import Header from "../components/Header";
 import TaskInputModal from "../modals/TaskInputModal";
@@ -7,6 +7,23 @@ import TaskInputModal from "../modals/TaskInputModal";
 export default function AddTaskScreen() {
   const { dispatch } = useTaskContext();
   const [modalVisible, setModalVisible] = useState(false);
+  const [fadeAnim] = useState(new Animated.Value(0));
+  const [slideAnim] = useState(new Animated.Value(100));
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 1000, // Adjust duration as needed
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 1000, // Adjust duration as needed
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, [fadeAnim, slideAnim]);
 
   const handleAddTask = async (task) => {
     try {
@@ -32,11 +49,15 @@ export default function AddTaskScreen() {
 
   return (
     <View style={styles.container}>
-      <Header title="Add Task" />
-      <View style={styles.content}>
+      <Animated.View style={[styles.header, { opacity: fadeAnim }]}>
+        <Header title="Add Task" />
+      </Animated.View>
+      <Animated.View
+        style={[styles.content, { transform: [{ translateY: slideAnim }] }]}
+      >
         <Text style={styles.title}>Add a New Task</Text>
         <Button title="Add Task" onPress={() => setModalVisible(true)} />
-      </View>
+      </Animated.View>
       <TaskInputModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
@@ -50,6 +71,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#ffffff",
+  },
+  header: {
+    alignItems: "center",
   },
   content: {
     flex: 1,

@@ -1,7 +1,14 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  Animated,
+  TouchableOpacity,
+} from "react-native";
 import { useTaskContext } from "../store/TaskContext";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Header from "../components/Header";
 import TaskModal from "../modals/TaskModal";
 import TaskList from "../components/TaskList";
@@ -11,6 +18,20 @@ export default function ViewTasksScreen() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useFocusEffect(
+    React.useCallback(() => {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+      return () => {
+        fadeAnim.setValue(0);
+      };
+    }, [])
+  );
 
   const handleDeleteTask = async (id) => {
     try {
@@ -70,7 +91,7 @@ export default function ViewTasksScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       <Header title="View Tasks" />
       <View style={styles.content}>
         <Text style={styles.title}>Tasks</Text>
@@ -92,7 +113,7 @@ export default function ViewTasksScreen() {
         onEdit={handleEditTask}
         onDelete={() => handleDeleteTask(selectedTask?.id)}
       />
-    </View>
+    </Animated.View>
   );
 }
 
