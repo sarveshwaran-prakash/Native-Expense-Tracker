@@ -26,6 +26,13 @@ const taskReducer = (state, action) => {
         ...state,
         tasks: action.payload.tasks,
       };
+    case "UPDATE_TASK":
+      return {
+        ...state,
+        tasks: state.tasks.map((task, i) =>
+          i === action.payload.index ? action.payload.task : task
+        ),
+      };
 
     default:
       return state;

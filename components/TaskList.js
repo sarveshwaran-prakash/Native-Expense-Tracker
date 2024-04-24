@@ -25,7 +25,7 @@ const TaskList = ({ tasks, handleTaskOptionPress }) => {
               </Text>
             )}
           </View>
-          <TouchableOpacity onPress={() => handleTaskOptionPress(task.id)}>
+          <TouchableOpacity onPress={() => handleTaskOptionPress(task)}>
             <Text style={styles.optionText}>Options</Text>
           </TouchableOpacity>
         </View>

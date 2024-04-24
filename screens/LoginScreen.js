@@ -1,4 +1,3 @@
-// LoginScreen.js
 import React, { useState } from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
 
@@ -7,7 +6,18 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    // Implement login logic here
+    fetch(`http://10.0.2.2:3000/users?email=${email}&password=${password}`)
+      .then((response) => response.json())
+      .then((users) => {
+        if (users.length > 0) {
+          // Valid credentials, navigate to the AddTaskScreen
+          navigation.navigate("AddTask");
+        } else {
+          // Invalid credentials, handle accordingly (e.g., display error message)
+          alert("Invalid email or password. Please try again.");
+        }
+      })
+      .catch((error) => console.error("Error:", error));
   };
 
   return (

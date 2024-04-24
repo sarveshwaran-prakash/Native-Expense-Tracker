@@ -8,29 +8,19 @@ import TaskList from "../components/TaskList"; // Import TaskList component
 
 export default function ViewTasksScreen() {
   const { state, dispatch } = useTaskContext();
-  const [selectedTaskIndex, setSelectedTaskIndex] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const navigation = useNavigation(); // Hook to access navigation
+  const navigation = useNavigation();
 
-  const handleDeleteTask = async (index) => {
+  const handleDeleteTask = async (id) => {
     try {
-      // Check if the index is valid
-      if (index < 0 || index >= state.tasks.length) {
-        throw new Error("Invalid task index");
-      }
-
-      // Get the ID of the task to be deleted
-
-      // Send DELETE request to delete the task using its ID
-      const response = await fetch(`http://10.0.2.2:3000/tasks/${index}`, {
+      const response = await fetch(`http://10.0.2.2:3000/tasks/${id}`, {
         method: "DELETE",
       });
 
-      // Check if the request was successful
       if (response.ok) {
-        // Remove the deleted task from the state
-        dispatch({ type: "DELETE_TASK", payload: index });
-        setModalVisible(false); // Close the modal after deleting task
+        dispatch({ type: "DELETE_TASK", payload: id });
+        setModalVisible(false);
       } else {
         throw new Error("Failed to delete task");
       }
@@ -39,19 +29,80 @@ export default function ViewTasksScreen() {
     }
   };
 
-  const handleEditTask = (index) => {
-    // Your edit task function
+  // const handleEditTask = async (editedTask, editedDescription) => {
+  //   try {
+  //     if (!selectedTask) {
+  //       throw new Error("Task not found");
+  //     }
+
+  //     const updatedTask = { ...selectedTask, title: editedTask, description: editedDescription };
+
+  //     const response = await fetch(
+  //       `http://10.0.2.2:3000/tasks/${selectedTask.id}`,
+  //       {
+  //         method: "PUT",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(updatedTask),
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       dispatch({ type: "UPDATE_TASK", payload: updatedTask }); // Dispatch action to update task in state
+  //       setModalVisible(false);
+  //     } else {
+  //       throw new Error("Failed to update task");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating task:", error.message);
+  //     Alert.alert("Error", "Failed to update task. Please try again later.");
+  //   }
+  // };
+
+  const handleEditTask = async (editedTask, editedDescription) => {
+    try {
+      if (!selectedTask) {
+        throw new Error("Task not found");
+      }
+
+      const updatedTask = {
+        ...selectedTask,
+        title: editedTask,
+        description: editedDescription,
+      };
+
+      const response = await fetch(
+        `http://10.0.2.2:3000/tasks/${selectedTask.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedTask),
+        }
+      );
+
+      if (response.ok) {
+        dispatch({ type: "UPDATE_TASK", payload: updatedTask }); // Dispatch action to update task in state
+        setModalVisible(false);
+      } else {
+        throw new Error("Failed to update task");
+      }
+    } catch (error) {
+      console.error("Error updating task:", error.message);
+      Alert.alert("Error", "Failed to update task. Please try again later.");
+    }
   };
 
-  const handleTaskOptionPress = (index) => {
-    setSelectedTaskIndex(index);
+  const handleTaskOptionPress = (task) => {
+    setSelectedTask(task);
     setModalVisible(true);
   };
 
   return (
     <View style={styles.container}>
       <Header title="View Tasks" />
-      {console.log("tasksscreen", state.tasks)}
       <View style={styles.content}>
         <Text style={styles.title}>Tasks</Text>
         {state.tasks.length === 0 ? (
@@ -60,15 +111,17 @@ export default function ViewTasksScreen() {
           <TaskList
             tasks={state.tasks}
             handleTaskOptionPress={handleTaskOptionPress}
-            handleDeleteTask={handleDeleteTask} // Pass the handleDeleteTask function
+            handleDeleteTask={handleDeleteTask}
           />
         )}
       </View>
       <TaskModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
-        onEdit={() => handleEditTask(selectedTaskIndex)}
-        onDelete={() => handleDeleteTask(selectedTaskIndex)}
+        initialTask={selectedTask?.title}
+        initialDescription={selectedTask?.description}
+        onEdit={handleEditTask}
+        onDelete={() => handleDeleteTask(selectedTask?.id)}
       />
     </View>
   );

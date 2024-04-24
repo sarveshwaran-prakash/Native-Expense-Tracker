@@ -7,7 +7,18 @@ const SignupScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   const handleSignup = () => {
-    // Implement signup logic here
+    fetch("http://10.0.2.2:3000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => {
+        // Handle response, e.g., navigate to the login screen
+        navigation.navigate("Login");
+      })
+      .catch((error) => console.error("Error:", error));
   };
 
   return (

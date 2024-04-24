@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   View,
@@ -15,12 +15,20 @@ const { width, height } = Dimensions.get("window");
 export default function EditTaskModal({
   visible,
   onClose,
-  task,
-  description,
+  task: initialTask,
+  description: initialDescription,
   onSave,
 }) {
-  const [editedTask, setEditedTask] = useState(task || ""); // Ensure that task is not undefined
-  const [editedDescription, setEditedDescription] = useState(description || ""); // Ensure that description is not undefined
+  const [editedTask, setEditedTask] = useState(initialTask || "");
+  const [editedDescription, setEditedDescription] = useState(
+    initialDescription || ""
+  );
+
+  useEffect(() => {
+    // Update the state when task or description props change
+    setEditedTask(initialTask || "");
+    setEditedDescription(initialDescription || "");
+  }, [initialTask, initialDescription]);
 
   const handleSave = () => {
     onSave(editedTask, editedDescription);
@@ -56,7 +64,7 @@ export default function EditTaskModal({
           <Button
             title="Save"
             onPress={handleSave}
-            disabled={editedTask.trim() === ""}
+            disabled={!editedTask?.trim()}
           />
         </View>
       </View>
