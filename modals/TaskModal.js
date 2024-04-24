@@ -37,7 +37,10 @@ export default function TaskModal({
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <TouchableOpacity onPress={handleEdit}>
-              <Text style={styles.modalOption}>Edit Task</Text>
+              <Text style={styles.modalOption}>
+                <FontAwesome name="edit" size={20} />
+                Edit Task
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={onDelete}>
               <Text style={styles.modalOption}>

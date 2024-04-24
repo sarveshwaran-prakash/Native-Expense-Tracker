@@ -51,13 +51,13 @@ export default function EditTaskModal({
             style={styles.input}
             value={editedTask}
             onChangeText={setEditedTask}
-            placeholder="Enter task"
+            placeholder="Update task"
           />
           <TextInput
             style={[styles.input, styles.descriptionInput]}
             value={editedDescription}
             onChangeText={setEditedDescription}
-            placeholder="Enter description (optional)"
+            placeholder="Update descritption"
             multiline={true}
             numberOfLines={4}
           />
