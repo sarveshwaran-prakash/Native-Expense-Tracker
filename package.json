@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@react-navigation/material-bottom-tabs": "^6.2.28",
-    "expo": "~50.0.14",
+    "expo": "~50.0.17",
     "expo-status-bar": "~1.11.1",
     "jest": "^29.3.1",
     "jest-expo": "~50.0.4",
