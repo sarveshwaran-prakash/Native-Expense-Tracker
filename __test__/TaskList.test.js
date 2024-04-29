@@ -21,7 +21,7 @@
 
 import React from "react";
 import { render } from "@testing-library/react-native";
-import TaskList from "../components/TaskList";
+import TaskList from "../components/ExpenseList";
 
 // Mock data
 const mockTasks = [

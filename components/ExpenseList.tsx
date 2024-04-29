@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ interface Task {
   description?: string;
 }
 
-interface TaskListProps {
+interface ExpenseListprops {
   tasks: Task[];
   handleTaskOptionPress: (task: Task) => void;
   handleDeleteTask: (id: string) => void; // Corrected function signature
@@ -22,16 +22,10 @@ interface TaskListProps {
 
 const { width } = Dimensions.get("window");
 
-const TaskList: React.FC<TaskListProps> = ({
+const ExpenseList: React.FC<ExpenseListprops> = ({
   tasks,
   handleTaskOptionPress,
-  handleDeleteTask,
 }) => {
-  useEffect(() => {
-    // Log tasks whenever tasks change for debugging
-    console.log("Updated tasks:", tasks);
-  }, [tasks]);
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {tasks.map((task) => (
@@ -90,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskList;
+export default ExpenseList;

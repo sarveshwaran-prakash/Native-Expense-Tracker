@@ -11,7 +11,7 @@ import { useTaskContext } from "../store/TaskContext";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Header from "../components/Header";
 import TaskModal from "../modals/TaskModal";
-import TaskList from "../components/TaskList";
+import ExpenseList from "../components/ExpenseList";
 
 interface Task {
   id: string;
@@ -112,7 +112,7 @@ const ViewTasksScreen: React.FC = () => {
         {state.tasks.length === 0 ? (
           <Text>No tasks available</Text>
         ) : (
-          <TaskList
+          <ExpenseList
             tasks={state.tasks}
             handleTaskOptionPress={handleTaskOptionPress}
             handleDeleteTask={handleDeleteTask}
