@@ -12,7 +12,17 @@ import { FontAwesome } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
-export default function TaskInputModal({ visible, onClose, onAddTask }) {
+interface TaskInputModalProps {
+  visible: boolean;
+  onClose: () => void;
+  onAddTask: (task: { title: string; description: string }) => void;
+}
+
+const TaskInputModal: React.FC<TaskInputModalProps> = ({
+  visible,
+  onClose,
+  onAddTask,
+}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -57,7 +67,7 @@ export default function TaskInputModal({ visible, onClose, onAddTask }) {
       </View>
     </Modal>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -99,3 +109,5 @@ const styles = StyleSheet.create({
     right: 10,
   },
 });
+
+export default TaskInputModal;

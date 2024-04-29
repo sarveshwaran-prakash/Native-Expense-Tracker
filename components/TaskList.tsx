@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -8,12 +8,30 @@ import {
   ScrollView,
 } from "react-native";
 
+interface Task {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+interface TaskListProps {
+  tasks: Task[];
+  handleTaskOptionPress: (task: Task) => void;
+  handleDeleteTask: (id: string) => void; // Corrected function signature
+}
+
 const { width } = Dimensions.get("window");
-const TaskList = ({ tasks, handleTaskOptionPress }) => {
+
+const TaskList: React.FC<TaskListProps> = ({
+  tasks,
+  handleTaskOptionPress,
+  handleDeleteTask,
+}) => {
   useEffect(() => {
     // Log tasks whenever tasks change for debugging
     console.log("Updated tasks:", tasks);
   }, [tasks]);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {tasks.map((task) => (

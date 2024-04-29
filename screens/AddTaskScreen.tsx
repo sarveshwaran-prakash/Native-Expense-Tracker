@@ -7,8 +7,8 @@ import TaskInputModal from "../modals/TaskInputModal";
 export default function AddTaskScreen() {
   const { dispatch } = useTaskContext();
   const [modalVisible, setModalVisible] = useState(false);
-  const [fadeAnim] = useState(new Animated.Value(0));
-  const [slideAnim] = useState(new Animated.Value(100));
+  const fadeAnim = useState(new Animated.Value(0))[0];
+  const slideAnim = useState(new Animated.Value(100))[0];
 
   useEffect(() => {
     Animated.parallel([
@@ -23,9 +23,12 @@ export default function AddTaskScreen() {
         useNativeDriver: true,
       }),
     ]).start();
-  }, [fadeAnim, slideAnim]);
+  }, []);
 
-  const handleAddTask = async (task) => {
+  const handleAddTask = async (task: {
+    title: string;
+    description: string;
+  }) => {
     try {
       const response = await fetch("http://10.0.2.2:3000/tasks", {
         method: "POST",

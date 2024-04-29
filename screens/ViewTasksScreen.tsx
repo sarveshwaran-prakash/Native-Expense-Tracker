@@ -13,10 +13,17 @@ import Header from "../components/Header";
 import TaskModal from "../modals/TaskModal";
 import TaskList from "../components/TaskList";
 
-export default function ViewTasksScreen() {
+interface Task {
+  id: string;
+  title: string;
+  description?: string; // Ensure that description is optional
+}
+
+const ViewTasksScreen: React.FC = () => {
   const { state, dispatch } = useTaskContext();
-  const [selectedTask, setSelectedTask] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+
   const navigation = useNavigation();
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -33,7 +40,7 @@ export default function ViewTasksScreen() {
     }, [])
   );
 
-  const handleDeleteTask = async (id) => {
+  const handleDeleteTask = async (id: string) => {
     try {
       const response = await fetch(`http://10.0.2.2:3000/tasks/${id}`, {
         method: "DELETE",
@@ -50,13 +57,16 @@ export default function ViewTasksScreen() {
     }
   };
 
-  const handleEditTask = async (editedTask, editedDescription) => {
+  const handleEditTask = async (
+    editedTask: string,
+    editedDescription: string
+  ) => {
     try {
       if (!selectedTask) {
         throw new Error("Task not found");
       }
 
-      const updatedTask = {
+      const updatedTask: Task = {
         ...selectedTask,
         title: editedTask,
         description: editedDescription,
@@ -75,7 +85,7 @@ export default function ViewTasksScreen() {
 
       if (response.ok) {
         // Update task state with the edited task
-        const updatedTasks = state.tasks.map((task) =>
+        const updatedTasks: Task[] = state.tasks.map((task) =>
           task.id === selectedTask.id ? updatedTask : task
         );
         dispatch({ type: "SET_TASKS", payload: { tasks: updatedTasks } });
@@ -83,13 +93,13 @@ export default function ViewTasksScreen() {
       } else {
         throw new Error("Failed to update task");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error updating task:", error.message);
       Alert.alert("Error", "Failed to update task. Please try again later.");
     }
   };
 
-  const handleTaskOptionPress = (task) => {
+  const handleTaskOptionPress = (task: Task) => {
     setSelectedTask(task);
     setModalVisible(true);
   };
@@ -109,17 +119,21 @@ export default function ViewTasksScreen() {
           />
         )}
       </View>
-      <TaskModal
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        initialTask={selectedTask?.title}
-        initialDescription={selectedTask?.description}
-        onEdit={handleEditTask}
-        onDelete={() => handleDeleteTask(selectedTask?.id)}
-      />
+      {selectedTask && (
+        <TaskModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          initialTask={selectedTask ? selectedTask.title : ""} // Add null check
+          initialDescription={
+            selectedTask ? selectedTask.description || "" : ""
+          } // Add null check
+          onEdit={handleEditTask}
+          onDelete={() => handleDeleteTask(selectedTask ? selectedTask.id : "")} // Add null check
+        />
+      )}
     </Animated.View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -135,3 +149,5 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+
+export default ViewTasksScreen;

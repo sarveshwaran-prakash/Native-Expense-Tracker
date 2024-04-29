@@ -1,25 +1,34 @@
-// TaskModal.js
 import React, { useState } from "react";
 import { Modal, View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import EditTaskModal from "./EditTaskModal";
 
-export default function TaskModal({
+interface TaskModalProps {
+  visible: boolean;
+  onClose: () => void;
+  onEdit: (editedTask: string, editedDescription: string) => void;
+  onDelete: () => void;
+  initialTask?: string; // Make initialTask optional
+  initialDescription: string;
+}
+
+const TaskModal: React.FC<TaskModalProps> = ({
   visible,
   onClose,
   onEdit,
   onDelete,
-  task,
-  description,
-}) {
+  initialTask,
+  initialDescription,
+}) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
 
   const handleEdit = () => {
     setEditModalVisible(true);
   };
 
-  const handleSaveEdit = (editedTask, editedDescription) => {
+  const handleSaveEdit = (editedTask: string, editedDescription: string) => {
     onEdit(editedTask, editedDescription);
+    setEditModalVisible(false); // Close the edit modal after saving edits
   };
 
   return (
@@ -47,19 +56,25 @@ export default function TaskModal({
                 <FontAwesome name="trash" size={20} /> Delete Task
               </Text>
             </TouchableOpacity>
+            {/* Display initial task details */}
+            <Text>Task: {initialTask}</Text>
+            <Text>Description: {initialDescription}</Text>
           </View>
         </View>
       </TouchableOpacity>
-      <EditTaskModal
-        visible={editModalVisible}
-        onClose={() => setEditModalVisible(false)}
-        task={task}
-        description={description}
-        onSave={handleSaveEdit}
-      />
+      {/* Conditionally render EditTaskModal */}
+      {editModalVisible && (
+        <EditTaskModal
+          visible={editModalVisible}
+          onClose={() => setEditModalVisible(false)}
+          task={initialTask || ""}
+          description={initialDescription}
+          onSave={handleSaveEdit}
+        />
+      )}
     </Modal>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -91,3 +106,5 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+
+export default TaskModal;

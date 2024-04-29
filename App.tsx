@@ -4,7 +4,6 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import AddTaskScreen from "./screens/AddTaskScreen";
 import ViewTasksScreen from "./screens/ViewTasksScreen";
 import { TaskProvider } from "./store/TaskContext";
-import { Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"; // for FontAwesome icons
 
 const Tab = createMaterialBottomTabNavigator();
@@ -18,7 +17,7 @@ export default function App() {
             name="Add Task"
             component={AddTaskScreen}
             options={{
-              tabBarLabel: <Text>ADD TASKS</Text>,
+              tabBarLabel: "ADD TASKS",
               tabBarIcon: ({ color }) => (
                 <Icon name="plus" color={color} size={26} />
               ),
@@ -28,7 +27,7 @@ export default function App() {
             name="View Tasks"
             component={ViewTasksScreen}
             options={{
-              tabBarLabel: <Text>VIEW TASKS</Text>,
+              tabBarLabel: "VIEW TASKS",
               tabBarIcon: ({ color }) => (
                 <Icon name="list" color={color} size={26} />
               ),

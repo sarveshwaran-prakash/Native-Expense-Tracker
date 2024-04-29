@@ -12,13 +12,21 @@ import { FontAwesome } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
-export default function EditTaskModal({
+interface EditTaskModalProps {
+  visible: boolean;
+  onClose: () => void;
+  task?: string;
+  description?: string;
+  onSave: (task: string, description: string) => void;
+}
+
+const EditTaskModal: React.FC<EditTaskModalProps> = ({
   visible,
   onClose,
   task: initialTask,
   description: initialDescription,
   onSave,
-}) {
+}) => {
   const [editedTask, setEditedTask] = useState(initialTask || "");
   const [editedDescription, setEditedDescription] = useState(
     initialDescription || ""
@@ -57,7 +65,7 @@ export default function EditTaskModal({
             style={[styles.input, styles.descriptionInput]}
             value={editedDescription}
             onChangeText={setEditedDescription}
-            placeholder="Update descritption"
+            placeholder="Update description"
             multiline={true}
             numberOfLines={4}
           />
@@ -70,7 +78,7 @@ export default function EditTaskModal({
       </View>
     </Modal>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -112,3 +120,5 @@ const styles = StyleSheet.create({
     right: 10,
   },
 });
+
+export default EditTaskModal;
