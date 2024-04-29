@@ -16,29 +16,29 @@ interface EditExpenseModalProps {
   visible: boolean;
   onClose: () => void;
   expense?: string;
-  expenseDescription?: string;
-  onSave: (expense: string, expenseDescription: string) => void;
+  description?: string;
+  onSave: (expense: string, description: string) => void;
 }
 
 const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   visible,
   onClose,
   expense: initialExpense,
-  expenseDescription: initialExpenseDescription,
+  description: initialdescription,
   onSave,
 }) => {
   const [editedExpense, setEditedExpense] = useState(initialExpense || "");
-  const [editedExpenseDescription, setEditedExpenseDescription] = useState(
-    initialExpenseDescription || ""
+  const [editeddescription, setEditeddescription] = useState(
+    initialdescription || ""
   );
 
   useEffect(() => {
     setEditedExpense(initialExpense || "");
-    setEditedExpenseDescription(initialExpenseDescription || "");
-  }, [initialExpense, initialExpenseDescription]);
+    setEditeddescription(initialdescription || "");
+  }, [initialExpense, initialdescription]);
 
   const handleSave = () => {
-    onSave(editedExpense, editedExpenseDescription);
+    onSave(editedExpense, editeddescription);
     onClose();
   };
 
@@ -62,8 +62,8 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
           />
           <TextInput
             style={[styles.input, styles.descriptionInput]}
-            value={editedExpenseDescription}
-            onChangeText={setEditedExpenseDescription}
+            value={editeddescription}
+            onChangeText={setEditeddescription}
             placeholder="Update description"
             multiline={true}
             numberOfLines={4}

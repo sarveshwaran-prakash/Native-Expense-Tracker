@@ -9,7 +9,7 @@ interface ExpenseModalProps {
   onEdit: (editedExpense: string, editedDescription: string) => void;
   onDelete: () => void;
   initialExpense?: string; // Make initialExpense optional
-  initialExpenseDescription: string;
+  initialdescription: string;
 }
 
 const ExpenseModal: React.FC<ExpenseModalProps> = ({
@@ -18,7 +18,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
   onEdit,
   onDelete,
   initialExpense,
-  initialExpenseDescription,
+  initialdescription,
 }) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
 
@@ -58,7 +58,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
             </TouchableOpacity>
             {/* Display initial expense details */}
             <Text>Expense: {initialExpense}</Text>
-            <Text>Description: {initialExpenseDescription}</Text>
+            <Text>Description: {initialdescription}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -68,7 +68,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
           visible={editModalVisible}
           onClose={() => setEditModalVisible(false)}
           expense={initialExpense || ""}
-          expenseDescription={initialExpenseDescription}
+          description={initialdescription}
           onSave={handleSaveEdit}
         />
       )}

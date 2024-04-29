@@ -126,7 +126,7 @@ const ViewExpensesScreen: React.FC = () => {
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
           initialExpense={selectedExpense ? selectedExpense.title : ""} // Add null check
-          initialExpenseDescription={
+          initialdescription={
             selectedExpense ? selectedExpense.description || "" : ""
           } // Add null check
           onEdit={handleEditExpense}

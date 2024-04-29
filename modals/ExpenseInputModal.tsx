@@ -15,10 +15,7 @@ const { width, height } = Dimensions.get("window");
 interface ExpenseInputModalProps {
   visible: boolean;
   onClose: () => void;
-  onAddExpense: (expense: {
-    expenseTitle: string;
-    expenseDescription: string;
-  }) => void;
+  onAddExpense: (expense: { title: string; description: string }) => void;
 }
 
 const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
@@ -26,13 +23,13 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
   onClose,
   onAddExpense,
 }) => {
-  const [expenseTitle, setExpenseTitle] = useState("");
-  const [expenseDescription, setExpenseDescription] = useState("");
+  const [title, settitle] = useState("");
+  const [description, setdescription] = useState("");
 
   const handleAddExpense = () => {
-    onAddExpense({ expenseTitle, expenseDescription });
-    setExpenseTitle("");
-    setExpenseDescription("");
+    onAddExpense({ title, description });
+    settitle("");
+    setdescription("");
   };
 
   return (
@@ -49,14 +46,14 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
           </TouchableOpacity>
           <TextInput
             style={styles.input}
-            value={expenseTitle}
-            onChangeText={setExpenseTitle}
+            value={title}
+            onChangeText={settitle}
             placeholder="Enter expense title"
           />
           <TextInput
             style={[styles.input, styles.descriptionInput]}
-            value={expenseDescription}
-            onChangeText={setExpenseDescription}
+            value={description}
+            onChangeText={setdescription}
             placeholder="Enter description (optional)"
             multiline={true}
             numberOfLines={4}
@@ -64,7 +61,7 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
           <Button
             title="Add Expense"
             onPress={handleAddExpense}
-            disabled={expenseTitle.trim() === ""}
+            disabled={title.trim() === ""}
           />
         </View>
       </View>

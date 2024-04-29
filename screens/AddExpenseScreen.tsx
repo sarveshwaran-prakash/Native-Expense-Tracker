@@ -18,8 +18,8 @@ export default function AddExpenseScreen() {
   }, []);
 
   const handleAddExpense = async (expense: {
-    expenseTitle: string;
-    expenseDescription: string;
+    title: string;
+    description: string;
   }) => {
     try {
       const response = await fetch("http://10.0.2.2:3000/expenses", {

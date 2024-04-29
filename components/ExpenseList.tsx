@@ -33,11 +33,11 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
       {expenses.map((expense) => (
         <View key={expense.id} style={styles.expense}>
           <View style={styles.expenseContent}>
-            <Text numberOfLines={1} style={styles.expenseTitle}>
+            <Text numberOfLines={1} style={styles.title}>
               {expense.title}
             </Text>
             {expense.description && (
-              <Text numberOfLines={1} style={styles.expenseDescription}>
+              <Text numberOfLines={1} style={styles.description}>
                 {expense.description}
               </Text>
             )}
@@ -73,11 +73,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 10,
   },
-  expenseTitle: {
+  title: {
     fontWeight: "bold",
     marginBottom: 5,
   },
-  expenseDescription: {
+  description: {
     fontSize: 14,
     color: "gray",
   },
