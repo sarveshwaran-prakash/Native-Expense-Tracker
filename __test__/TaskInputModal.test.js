@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import TaskInputModal from "../modals/TaskInputModal";
+import TaskInputModal from "../modals/ExpenseInputModal";
 
 describe("TaskInputModal", () => {
   it("renders correctly when visible", () => {

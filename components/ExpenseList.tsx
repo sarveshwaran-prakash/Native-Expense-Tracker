@@ -8,39 +8,41 @@ import {
   ScrollView,
 } from "react-native";
 
-interface Task {
+interface Expense {
   id: string;
   title: string;
   description?: string;
 }
 
-interface ExpenseListprops {
-  tasks: Task[];
-  handleTaskOptionPress: (task: Task) => void;
-  handleDeleteTask: (id: string) => void; // Corrected function signature
+interface ExpenseListProps {
+  expenses: Expense[];
+  handleExpenseOptionPress: (expense: Expense) => void;
+  handleDeleteExpense: (id: string) => void;
 }
 
 const { width } = Dimensions.get("window");
 
-const ExpenseList: React.FC<ExpenseListprops> = ({
-  tasks,
-  handleTaskOptionPress,
+const ExpenseList: React.FC<ExpenseListProps> = ({
+  expenses,
+  handleExpenseOptionPress,
 }) => {
+  console.log("expense.title", expenses);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {tasks.map((task) => (
-        <View key={task.id} style={styles.task}>
-          <View style={styles.taskContent}>
-            <Text numberOfLines={1} style={styles.taskTitle}>
-              {task.title}
+      {expenses.map((expense) => (
+        <View key={expense.id} style={styles.expense}>
+          <View style={styles.expenseContent}>
+            <Text numberOfLines={1} style={styles.expenseTitle}>
+              {expense.title}
             </Text>
-            {task.description && (
-              <Text numberOfLines={1} style={styles.taskDescription}>
-                {task.description}
+            {expense.description && (
+              <Text numberOfLines={1} style={styles.expenseDescription}>
+                {expense.description}
               </Text>
             )}
           </View>
-          <TouchableOpacity onPress={() => handleTaskOptionPress(task)}>
+          <TouchableOpacity onPress={() => handleExpenseOptionPress(expense)}>
             <Text style={styles.optionText}>Options</Text>
           </TouchableOpacity>
         </View>
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingBottom: 20,
   },
-  task: {
+  expense: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -67,15 +69,15 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignSelf: "center",
   },
-  taskContent: {
+  expenseContent: {
     flex: 1,
     marginRight: 10,
   },
-  taskTitle: {
+  expenseTitle: {
     fontWeight: "bold",
     marginBottom: 5,
   },
-  taskDescription: {
+  expenseDescription: {
     fontSize: 14,
     color: "gray",
   },

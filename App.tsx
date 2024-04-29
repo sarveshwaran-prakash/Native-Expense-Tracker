@@ -1,33 +1,32 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import AddTaskScreen from "./screens/AddTaskScreen";
-import ViewTasksScreen from "./screens/ViewTasksScreen";
-import { TaskProvider } from "./store/TaskContext";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { ExpenseProvider } from "./store/ExpenseContext";
+import AddExpenseScreen from "./screens/AddExpenseScreen";
+import ViewExpensesScreen from "./screens/ViewExpensesScreen";
+import { Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"; // for FontAwesome icons
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <TaskProvider>
+    <ExpenseProvider>
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen
-            name="Add Task"
-            component={AddTaskScreen}
+            name="Add Expense"
+            component={AddExpenseScreen}
             options={{
-              tabBarLabel: "ADD TASKS",
               tabBarIcon: ({ color }) => (
                 <Icon name="plus" color={color} size={26} />
               ),
             }}
           />
           <Tab.Screen
-            name="View Tasks"
-            component={ViewTasksScreen}
+            name="View Expenses"
+            component={ViewExpensesScreen}
             options={{
-              tabBarLabel: "VIEW TASKS",
               tabBarIcon: ({ color }) => (
                 <Icon name="list" color={color} size={26} />
               ),
@@ -35,6 +34,6 @@ export default function App() {
           />
         </Tab.Navigator>
       </NavigationContainer>
-    </TaskProvider>
+    </ExpenseProvider>
   );
 }

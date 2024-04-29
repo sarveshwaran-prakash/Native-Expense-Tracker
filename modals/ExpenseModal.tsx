@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import { Modal, View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import EditTaskModal from "./EditTaskModal";
+import EditExpenseModal from "./EditExpenseModal";
 
-interface TaskModalProps {
+interface ExpenseModalProps {
   visible: boolean;
   onClose: () => void;
-  onEdit: (editedTask: string, editedDescription: string) => void;
+  onEdit: (editedExpense: string, editedDescription: string) => void;
   onDelete: () => void;
-  initialTask?: string; // Make initialTask optional
-  initialDescription: string;
+  initialExpense?: string; // Make initialExpense optional
+  initialExpenseDescription: string;
 }
 
-const TaskModal: React.FC<TaskModalProps> = ({
+const ExpenseModal: React.FC<ExpenseModalProps> = ({
   visible,
   onClose,
   onEdit,
   onDelete,
-  initialTask,
-  initialDescription,
+  initialExpense,
+  initialExpenseDescription,
 }) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
 
@@ -26,8 +26,8 @@ const TaskModal: React.FC<TaskModalProps> = ({
     setEditModalVisible(true);
   };
 
-  const handleSaveEdit = (editedTask: string, editedDescription: string) => {
-    onEdit(editedTask, editedDescription);
+  const handleSaveEdit = (editedExpense: string, editedDescription: string) => {
+    onEdit(editedExpense, editedDescription);
     setEditModalVisible(false); // Close the edit modal after saving edits
   };
 
@@ -48,27 +48,27 @@ const TaskModal: React.FC<TaskModalProps> = ({
             <TouchableOpacity onPress={handleEdit}>
               <Text style={styles.modalOption}>
                 <FontAwesome name="edit" size={20} />
-                Edit Task
+                Edit Expense
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={onDelete}>
               <Text style={styles.modalOption}>
-                <FontAwesome name="trash" size={20} /> Delete Task
+                <FontAwesome name="trash" size={20} /> Delete Expense
               </Text>
             </TouchableOpacity>
-            {/* Display initial task details */}
-            <Text>Task: {initialTask}</Text>
-            <Text>Description: {initialDescription}</Text>
+            {/* Display initial expense details */}
+            <Text>Expense: {initialExpense}</Text>
+            <Text>Description: {initialExpenseDescription}</Text>
           </View>
         </View>
       </TouchableOpacity>
-      {/* Conditionally render EditTaskModal */}
+      {/* Conditionally render EditExpenseModal */}
       {editModalVisible && (
-        <EditTaskModal
+        <EditExpenseModal
           visible={editModalVisible}
           onClose={() => setEditModalVisible(false)}
-          task={initialTask || ""}
-          description={initialDescription}
+          expense={initialExpense || ""}
+          expenseDescription={initialExpenseDescription}
           onSave={handleSaveEdit}
         />
       )}
@@ -107,4 +107,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskModal;
+export default ExpenseModal;

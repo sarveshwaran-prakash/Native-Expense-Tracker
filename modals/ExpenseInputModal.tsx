@@ -1,51 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Modal,
   View,
   TextInput,
   Button,
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
-interface EditTaskModalProps {
+interface ExpenseInputModalProps {
   visible: boolean;
   onClose: () => void;
-  task?: string;
-  description?: string;
-  onSave: (task: string, description: string) => void;
+  onAddExpense: (expense: {
+    expenseTitle: string;
+    expenseDescription: string;
+  }) => void;
 }
 
-const EditTaskModal: React.FC<EditTaskModalProps> = ({
+const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
   visible,
   onClose,
-  task: initialTask,
-  description: initialDescription,
-  onSave,
+  onAddExpense,
 }) => {
-  const [editedTask, setEditedTask] = useState(initialTask || "");
-  const [editedDescription, setEditedDescription] = useState(
-    initialDescription || ""
-  );
+  const [expenseTitle, setExpenseTitle] = useState("");
+  const [expenseDescription, setExpenseDescription] = useState("");
 
-  useEffect(() => {
-    // Update the state when task or description props change
-    setEditedTask(initialTask || "");
-    setEditedDescription(initialDescription || "");
-  }, [initialTask, initialDescription]);
-
-  const handleSave = () => {
-    onSave(editedTask, editedDescription);
-    onClose();
+  const handleAddExpense = () => {
+    onAddExpense({ expenseTitle, expenseDescription });
+    setExpenseTitle("");
+    setExpenseDescription("");
   };
 
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={visible}
       onRequestClose={onClose}
@@ -57,22 +49,22 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
           </TouchableOpacity>
           <TextInput
             style={styles.input}
-            value={editedTask}
-            onChangeText={setEditedTask}
-            placeholder="Update task"
+            value={expenseTitle}
+            onChangeText={setExpenseTitle}
+            placeholder="Enter expense title"
           />
           <TextInput
             style={[styles.input, styles.descriptionInput]}
-            value={editedDescription}
-            onChangeText={setEditedDescription}
-            placeholder="Update description"
+            value={expenseDescription}
+            onChangeText={setExpenseDescription}
+            placeholder="Enter description (optional)"
             multiline={true}
             numberOfLines={4}
           />
           <Button
-            title="Save"
-            onPress={handleSave}
-            disabled={!editedTask?.trim()}
+            title="Add Expense"
+            onPress={handleAddExpense}
+            disabled={expenseTitle.trim() === ""}
           />
         </View>
       </View>
@@ -121,4 +113,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditTaskModal;
+export default ExpenseInputModal;

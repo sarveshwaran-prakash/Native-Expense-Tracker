@@ -15,7 +15,6 @@ const Header: React.FC<HeaderProps> = ({ title }: HeaderProps) => {
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: 40,
     width: "100%",
     height: 60,
     backgroundColor: "grey",
