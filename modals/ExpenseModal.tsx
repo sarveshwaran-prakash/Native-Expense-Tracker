@@ -6,10 +6,10 @@ import EditExpenseModal from "./EditExpenseModal";
 interface ExpenseModalProps {
   visible: boolean;
   onClose: () => void;
-  onEdit: (editedExpense: string, editedDescription: string) => void;
+  onEdit: (editedExpense: string, editedAmount: string) => void;
   onDelete: () => void;
   initialExpense?: string; // Make initialExpense optional
-  initialdescription: string;
+  initialAmount: string;
 }
 
 const ExpenseModal: React.FC<ExpenseModalProps> = ({
@@ -18,7 +18,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
   onEdit,
   onDelete,
   initialExpense,
-  initialdescription,
+  initialAmount,
 }) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
 
@@ -26,8 +26,8 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
     setEditModalVisible(true);
   };
 
-  const handleSaveEdit = (editedExpense: string, editedDescription: string) => {
-    onEdit(editedExpense, editedDescription);
+  const handleSaveEdit = (editedExpense: string, editedAmount: string) => {
+    onEdit(editedExpense, editedAmount);
     setEditModalVisible(false); // Close the edit modal after saving edits
   };
 
@@ -58,7 +58,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
             </TouchableOpacity>
             {/* Display initial expense details */}
             <Text>Expense: {initialExpense}</Text>
-            <Text>Description: {initialdescription}</Text>
+            <Text>amount: {initialAmount}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -68,7 +68,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
           visible={editModalVisible}
           onClose={() => setEditModalVisible(false)}
           expense={initialExpense || ""}
-          description={initialdescription}
+          amount={initialAmount}
           onSave={handleSaveEdit}
         />
       )}

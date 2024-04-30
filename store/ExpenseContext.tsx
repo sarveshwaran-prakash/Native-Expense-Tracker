@@ -9,7 +9,7 @@ import React, {
 interface Expense {
   id: string;
   title: string;
-  description?: string; // Make description optional
+  amount?: string; // Make amount optional
 }
 
 interface State {

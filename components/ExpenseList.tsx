@@ -11,7 +11,7 @@ import {
 interface Expense {
   id: string;
   title: string;
-  description?: string;
+  amount?: string;
 }
 
 interface ExpenseListProps {
@@ -36,9 +36,9 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
             <Text numberOfLines={1} style={styles.title}>
               {expense.title}
             </Text>
-            {expense.description && (
-              <Text numberOfLines={1} style={styles.description}>
-                {expense.description}
+            {expense.amount && (
+              <Text numberOfLines={1} style={styles.amount}>
+                {expense.amount}
               </Text>
             )}
           </View>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 5,
   },
-  description: {
+  amount: {
     fontSize: 14,
     color: "gray",
   },

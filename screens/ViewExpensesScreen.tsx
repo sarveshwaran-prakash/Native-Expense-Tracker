@@ -15,7 +15,7 @@ import ExpenseList from "../components/ExpenseList";
 interface Expense {
   id: string;
   title: string;
-  description?: string; // Ensure that description is optional
+  amount?: string; // Ensure that amount is optional
 }
 
 const ViewExpensesScreen: React.FC = () => {
@@ -58,7 +58,7 @@ const ViewExpensesScreen: React.FC = () => {
 
   const handleEditExpense = async (
     editedExpense: string,
-    editedDescription: string
+    editedAmount: string
   ) => {
     try {
       if (!selectedExpense) {
@@ -68,7 +68,7 @@ const ViewExpensesScreen: React.FC = () => {
       const updatedExpense: Expense = {
         ...selectedExpense,
         title: editedExpense,
-        description: editedDescription,
+        amount: editedAmount,
       };
 
       const response = await fetch(
@@ -126,9 +126,7 @@ const ViewExpensesScreen: React.FC = () => {
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
           initialExpense={selectedExpense ? selectedExpense.title : ""} // Add null check
-          initialdescription={
-            selectedExpense ? selectedExpense.description || "" : ""
-          } // Add null check
+          initialAmount={selectedExpense ? selectedExpense.amount || "" : ""} // Add null check
           onEdit={handleEditExpense}
           onDelete={() =>
             handleDeleteExpense(selectedExpense ? selectedExpense.id : "")

@@ -16,29 +16,27 @@ interface EditExpenseModalProps {
   visible: boolean;
   onClose: () => void;
   expense?: string;
-  description?: string;
-  onSave: (expense: string, description: string) => void;
+  amount?: string;
+  onSave: (expense: string, amount: string) => void;
 }
 
 const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   visible,
   onClose,
   expense: initialExpense,
-  description: initialdescription,
+  amount: initialAmount,
   onSave,
 }) => {
   const [editedExpense, setEditedExpense] = useState(initialExpense || "");
-  const [editeddescription, setEditeddescription] = useState(
-    initialdescription || ""
-  );
+  const [editedAmount, setEditedAmount] = useState(initialAmount || "");
 
   useEffect(() => {
     setEditedExpense(initialExpense || "");
-    setEditeddescription(initialdescription || "");
-  }, [initialExpense, initialdescription]);
+    setEditedAmount(initialAmount || "");
+  }, [initialExpense, initialAmount]);
 
   const handleSave = () => {
-    onSave(editedExpense, editeddescription);
+    onSave(editedExpense, editedAmount);
     onClose();
   };
 
@@ -61,10 +59,10 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
             placeholder="Update expense"
           />
           <TextInput
-            style={[styles.input, styles.descriptionInput]}
-            value={editeddescription}
-            onChangeText={setEditeddescription}
-            placeholder="Update description"
+            style={[styles.input, styles.amountInput]}
+            value={editedAmount}
+            onChangeText={setEditedAmount}
+            placeholder="Update amount"
             multiline={true}
             numberOfLines={4}
           />
@@ -110,7 +108,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
   },
-  descriptionInput: {
+  amountInput: {
     height: 100,
   },
   closeButton: {

@@ -15,7 +15,7 @@ const { width, height } = Dimensions.get("window");
 interface ExpenseInputModalProps {
   visible: boolean;
   onClose: () => void;
-  onAddExpense: (expense: { title: string; description: string }) => void;
+  onAddExpense: (expense: { title: string; amount: string }) => void;
 }
 
 const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
@@ -24,12 +24,12 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
   onAddExpense,
 }) => {
   const [title, settitle] = useState("");
-  const [description, setdescription] = useState("");
+  const [amount, setAmount] = useState("");
 
   const handleAddExpense = () => {
-    onAddExpense({ title, description });
+    onAddExpense({ title, amount });
     settitle("");
-    setdescription("");
+    setAmount("");
   };
 
   return (
@@ -51,17 +51,20 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
             placeholder="Enter expense title"
           />
           <TextInput
-            style={[styles.input, styles.descriptionInput]}
-            value={description}
-            onChangeText={setdescription}
-            placeholder="Enter description (optional)"
-            multiline={true}
-            numberOfLines={4}
+            style={[styles.input]}
+            value={amount}
+            onChangeText={(text) => {
+              // Validate input to allow only numeric characters
+              const numericValue = text.replace(/[^0-9]/g, "");
+              setAmount(numericValue);
+            }}
+            placeholder="Enter amount"
+            keyboardType="numeric"
           />
           <Button
             title="Add Expense"
             onPress={handleAddExpense}
-            disabled={title.trim() === ""}
+            disabled={title.trim() === "" || amount.trim() == ""}
           />
         </View>
       </View>
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
   },
-  descriptionInput: {
+  amountInput: {
     height: 100,
   },
   closeButton: {
