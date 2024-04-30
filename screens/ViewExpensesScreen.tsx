@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { useExpenseContext } from "../store/ExpenseContext";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import Header from "../components/Header";
 import ExpenseModal from "../modals/ExpenseModal";
 import ExpenseList from "../components/ExpenseList";
 import { computeTotalAll, computeTotalAmount } from "../utils/ExpenseUtils";
@@ -126,7 +125,6 @@ const ViewExpensesScreen: React.FC = () => {
 
   return (
     <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
-      {/* <Header title="View Expenses" /> */}
       <View style={styles.content}>
         <View style={styles.filterContainer}>
           <TouchableOpacity

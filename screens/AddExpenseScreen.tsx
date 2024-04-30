@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { View, Button, StyleSheet, Text, Animated } from "react-native";
 import { useExpenseContext } from "../store/ExpenseContext";
-import Header from "../components/Header";
 import ExpenseInputModal from "../modals/ExpenseInputModal";
 
 export default function AddExpenseScreen() {
@@ -44,9 +43,9 @@ export default function AddExpenseScreen() {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.header, { opacity: fadeAnim }]}>
-        {/* <Header title="Add Expense" /> */}
-      </Animated.View>
+      <Animated.View
+        style={[styles.header, { opacity: fadeAnim }]}
+      ></Animated.View>
       <View style={styles.content}>
         <Text style={styles.title}>Add a New Expense</Text>
         <Button title="Add Expense" onPress={() => setModalVisible(true)} />
