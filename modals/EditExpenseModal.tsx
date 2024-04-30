@@ -43,7 +43,7 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   const [editedSelectedType, setEditedSelectedType] = useState(
     initialSelectedType || ""
   );
-  const [editSelectedDate, setEditSelectedDate] = useState(
+  const [editedSelectedDate, seteditedSelectedDate] = useState(
     initialSelectedDate || ""
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -54,7 +54,7 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   }, [initialExpense, initialAmount]);
 
   const handleSave = () => {
-    onSave(editedExpense, editedAmount, editedSelectedType, editSelectedDate);
+    onSave(editedExpense, editedAmount, editedSelectedType, editedSelectedDate);
     onClose();
   };
   const handleDateChange = (event: any, selectedDate?: Date) => {
@@ -62,7 +62,7 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
     if (selectedDate) {
       // Convert the selectedDate to a string format you desire
       const dateString = selectedDate.toISOString(); // For example: "2024-04-30T12:00:00.000Z"
-      setEditSelectedDate(dateString);
+      seteditedSelectedDate(dateString);
     }
   };
 
@@ -71,9 +71,9 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   };
 
   const clearDate = () => {
-    setEditSelectedDate("");
+    seteditedSelectedDate("");
   };
-  console.log("editDate", editSelectedDate);
+  console.log("editDate", editedSelectedDate);
 
   return (
     <Modal
@@ -133,11 +133,11 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
                 style={styles.input}
                 placeholder="Pick your date"
                 editable={false}
-                value={editSelectedDate ? editSelectedDate : ""}
+                value={editedSelectedDate ? editedSelectedDate : ""}
               />
               <MaterialIcons name="event" size={24} color="black" />
             </TouchableOpacity>
-            {editSelectedDate && (
+            {editedSelectedDate && (
               <TouchableOpacity style={styles.clearButton} onPress={clearDate}>
                 <Ionicons name="close" size={20} color="gray" />
               </TouchableOpacity>
@@ -145,7 +145,7 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
             {showDatePicker && (
               <DateTimePicker
                 value={
-                  editSelectedDate ? new Date(editSelectedDate) : new Date()
+                  editedSelectedDate ? new Date(editedSelectedDate) : new Date()
                 }
                 mode="date"
                 display="default"

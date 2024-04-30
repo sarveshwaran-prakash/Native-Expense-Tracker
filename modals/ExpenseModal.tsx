@@ -10,7 +10,7 @@ interface ExpenseModalProps {
     editedExpense: string,
     editedAmount: string,
     editedSelectedType: string,
-    editSelectedDate: string
+    editedSelectedDate: string
   ) => void;
   onDelete: () => void;
   initialExpense?: string; // Make initialExpense optional
@@ -39,9 +39,9 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
     editedExpense: string,
     editedAmount: string,
     editedSelectedType: string,
-    editSelectedDate: string
+    editedSelectedDate: string
   ) => {
-    onEdit(editedExpense, editedAmount, editedSelectedType, editSelectedDate);
+    onEdit(editedExpense, editedAmount, editedSelectedType, editedSelectedDate);
     setEditModalVisible(false); // Close the edit modal after saving edits
   };
 

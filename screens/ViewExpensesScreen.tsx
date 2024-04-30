@@ -62,7 +62,7 @@ const ViewExpensesScreen: React.FC = () => {
     editedExpense: string,
     editedAmount: string,
     editedSelectedType: string,
-    editSelectedDate: string
+    editedSelectedDate: string
   ) => {
     try {
       if (!selectedExpense) {
@@ -74,7 +74,7 @@ const ViewExpensesScreen: React.FC = () => {
         title: editedExpense,
         amount: editedAmount,
         selectedType: editedSelectedType,
-        selectedDate: editSelectedDate,
+        selectedDate: editedSelectedDate,
       };
 
       const response = await fetch(
