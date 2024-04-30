@@ -7,14 +7,13 @@ export const computeTotalAmount = (
   return expenses
     .filter((expense) => expense.selectedType === type)
     .reduce((total, expense) => {
-      return type === "Income"
-        ? total + parseFloat(expense.amount || "0")
-        : total - parseFloat(expense.amount || "0");
+      const amount = parseFloat(expense.amount || "0");
+      return type === "Income" ? total + amount : total + Math.abs(amount);
     }, 0);
 };
 
 export const computeTotalAll = (expenses: Expense[]): number => {
   const totalIncome = computeTotalAmount(expenses, "Income");
   const totalExpense = computeTotalAmount(expenses, "Expense");
-  return totalIncome + totalExpense;
+  return totalIncome - totalExpense;
 };

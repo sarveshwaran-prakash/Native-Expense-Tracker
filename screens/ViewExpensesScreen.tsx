@@ -161,23 +161,34 @@ const ViewExpensesScreen: React.FC = () => {
             handleDeleteExpense={handleDeleteExpense}
           />
         )}
-        {filteredExpenses.length > 0 && filter === "" && (
+        {/* {filteredExpenses.length > 0 && filter === "" && (
           <Text style={styles.total}>
             Total: {computeTotalAll(filteredExpenses)}
           </Text>
         )}
-        {/* Display total amount for Income */}
         {filteredExpenses.length > 0 && filter === "Income" && (
           <Text style={styles.total}>
             Total Income: {computeTotalAmount(filteredExpenses, "Income")}
           </Text>
         )}
 
-        {/* Display total amount for Expense */}
         {filteredExpenses.length > 0 && filter === "Expense" && (
           <Text style={styles.total}>
             Total Expense: {computeTotalAmount(filteredExpenses, "Expense")}
           </Text>
+        )} */}
+        {filteredExpenses.length > 0 && filter === "" && (
+          <View style={styles.totalContainer}>
+            <Text style={styles.total}>
+              Income: {computeTotalAmount(filteredExpenses, "Income")}
+            </Text>
+            <Text style={styles.total}>
+              Expense: {computeTotalAmount(filteredExpenses, "Expense")}
+            </Text>
+            <Text style={styles.total}>
+              Total: {computeTotalAll(filteredExpenses)}
+            </Text>
+          </View>
         )}
       </View>
       {selectedExpense && (
@@ -232,11 +243,20 @@ const styles = StyleSheet.create({
   activeFilter: {
     backgroundColor: "blue",
   },
+  // total: {
+  //   fontWeight: "bold",
+  //   // marginTop: 10,
+  //   marginLeft: 300,
+  //   color: "green", // Adjust color as needed
+  // },
+  totalContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   total: {
     fontWeight: "bold",
-    // marginTop: 10,
-    marginLeft: 300,
-    color: "green", // Adjust color as needed
+    color: "green",
+    marginRight: 20, // Add spacing between each total
   },
 });
 

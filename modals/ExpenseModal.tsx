@@ -62,17 +62,17 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
             <TouchableOpacity onPress={handleEdit}>
               <Text style={styles.modalOption}>
                 <FontAwesome name="edit" size={20} />
-                Edit Expense
+                Edit transaction
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={onDelete}>
               <Text style={styles.modalOption}>
-                <FontAwesome name="trash" size={20} /> Delete Expense
+                <FontAwesome name="trash" size={20} /> Delete transaction
               </Text>
             </TouchableOpacity>
             {/* Display initial expense details */}
-            <Text>Expense: {initialExpense}</Text>
-            <Text>amount: {initialAmount}</Text>
+            <Text>Description {initialExpense}</Text>
+            <Text>Amount: {initialAmount}</Text>
           </View>
         </View>
       </TouchableOpacity>
