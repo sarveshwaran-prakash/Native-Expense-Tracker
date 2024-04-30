@@ -16,6 +16,7 @@ interface Expense {
   id: string;
   title: string;
   amount?: string; // Ensure that amount is optional
+  selectedType: string;
 }
 
 const ViewExpensesScreen: React.FC = () => {
@@ -58,7 +59,8 @@ const ViewExpensesScreen: React.FC = () => {
 
   const handleEditExpense = async (
     editedExpense: string,
-    editedAmount: string
+    editedAmount: string,
+    editedSelectedType: string
   ) => {
     try {
       if (!selectedExpense) {
@@ -69,6 +71,7 @@ const ViewExpensesScreen: React.FC = () => {
         ...selectedExpense,
         title: editedExpense,
         amount: editedAmount,
+        selectedType: editedSelectedType,
       };
 
       const response = await fetch(
@@ -127,6 +130,9 @@ const ViewExpensesScreen: React.FC = () => {
           onClose={() => setModalVisible(false)}
           initialExpense={selectedExpense ? selectedExpense.title : ""} // Add null check
           initialAmount={selectedExpense ? selectedExpense.amount || "" : ""} // Add null check
+          initialSelectedType={
+            selectedExpense ? selectedExpense.selectedType || "" : ""
+          }
           onEdit={handleEditExpense}
           onDelete={() =>
             handleDeleteExpense(selectedExpense ? selectedExpense.id : "")

@@ -12,6 +12,7 @@ interface Expense {
   id: string;
   title: string;
   amount?: string;
+  selectedType: string;
 }
 
 interface ExpenseListProps {
@@ -31,7 +32,15 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {expenses.map((expense) => (
-        <View key={expense.id} style={styles.expense}>
+        <View
+          key={expense.id}
+          style={[
+            styles.expense,
+            expense.selectedType === "Expense"
+              ? styles.expenseExpenseType
+              : styles.expenseIncomeType,
+          ]}
+        >
           <View style={styles.expenseContent}>
             <Text numberOfLines={1} style={styles.title}>
               {expense.title}
@@ -58,13 +67,13 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   expense: {
+    display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 5,
     width: width * 0.9,
     alignSelf: "center",
@@ -83,6 +92,17 @@ const styles = StyleSheet.create({
   },
   optionText: {
     marginRight: 10,
+  },
+  selectedType: {
+    fontWeight: "bold",
+    fontSize: 16,
+    right: 90,
+  },
+  expenseExpenseType: {
+    borderColor: "red",
+  },
+  expenseIncomeType: {
+    borderColor: "#007bff",
   },
 });
 

@@ -6,10 +6,15 @@ import EditExpenseModal from "./EditExpenseModal";
 interface ExpenseModalProps {
   visible: boolean;
   onClose: () => void;
-  onEdit: (editedExpense: string, editedAmount: string) => void;
+  onEdit: (
+    editedExpense: string,
+    editedAmount: string,
+    editedSelectedType: string
+  ) => void;
   onDelete: () => void;
   initialExpense?: string; // Make initialExpense optional
   initialAmount: string;
+  initialSelectedType: string;
 }
 
 const ExpenseModal: React.FC<ExpenseModalProps> = ({
@@ -19,6 +24,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
   onDelete,
   initialExpense,
   initialAmount,
+  initialSelectedType,
 }) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
 
@@ -26,8 +32,12 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
     setEditModalVisible(true);
   };
 
-  const handleSaveEdit = (editedExpense: string, editedAmount: string) => {
-    onEdit(editedExpense, editedAmount);
+  const handleSaveEdit = (
+    editedExpense: string,
+    editedAmount: string,
+    editedSelectedType: string
+  ) => {
+    onEdit(editedExpense, editedAmount, editedSelectedType);
     setEditModalVisible(false); // Close the edit modal after saving edits
   };
 
@@ -69,6 +79,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
           onClose={() => setEditModalVisible(false)}
           expense={initialExpense || ""}
           amount={initialAmount}
+          selectedType={initialSelectedType}
           onSave={handleSaveEdit}
         />
       )}

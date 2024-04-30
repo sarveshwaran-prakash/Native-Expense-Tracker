@@ -17,7 +17,8 @@ interface EditExpenseModalProps {
   onClose: () => void;
   expense?: string;
   amount?: string;
-  onSave: (expense: string, amount: string) => void;
+  selectedType: string;
+  onSave: (expense: string, amount: string, selectedType: string) => void;
 }
 
 const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
@@ -25,10 +26,14 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   onClose,
   expense: initialExpense,
   amount: initialAmount,
+  selectedType: initialSelectedType,
   onSave,
 }) => {
   const [editedExpense, setEditedExpense] = useState(initialExpense || "");
   const [editedAmount, setEditedAmount] = useState(initialAmount || "");
+  const [editedSelectedType, setEditedSelectedType] = useState(
+    initialSelectedType || ""
+  );
 
   useEffect(() => {
     setEditedExpense(initialExpense || "");
@@ -36,7 +41,7 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   }, [initialExpense, initialAmount]);
 
   const handleSave = () => {
-    onSave(editedExpense, editedAmount);
+    onSave(editedExpense, editedAmount, editedSelectedType);
     onClose();
   };
 
@@ -59,12 +64,14 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
             placeholder="Update expense"
           />
           <TextInput
-            style={[styles.input, styles.amountInput]}
+            style={[styles.input]}
             value={editedAmount}
-            onChangeText={setEditedAmount}
+            onChangeText={(text) => {
+              const numericValue = text.replace(/[^0-9]/g, "");
+              setEditedAmount(numericValue);
+            }}
             placeholder="Update amount"
-            multiline={true}
-            numberOfLines={4}
+            keyboardType="numeric"
           />
           <Button
             title="Save"

@@ -10,6 +10,7 @@ interface Expense {
   id: string;
   title: string;
   amount?: string; // Make amount optional
+  selectedType: string;
 }
 
 interface State {
