@@ -17,6 +17,7 @@ interface Expense {
   title: string;
   amount?: string; // Ensure that amount is optional
   selectedType: string;
+  selectedDate: string;
 }
 
 const ViewExpensesScreen: React.FC = () => {
@@ -60,7 +61,8 @@ const ViewExpensesScreen: React.FC = () => {
   const handleEditExpense = async (
     editedExpense: string,
     editedAmount: string,
-    editedSelectedType: string
+    editedSelectedType: string,
+    editSelectedDate: string
   ) => {
     try {
       if (!selectedExpense) {
@@ -72,6 +74,7 @@ const ViewExpensesScreen: React.FC = () => {
         title: editedExpense,
         amount: editedAmount,
         selectedType: editedSelectedType,
+        selectedDate: editSelectedDate,
       };
 
       const response = await fetch(
@@ -107,13 +110,12 @@ const ViewExpensesScreen: React.FC = () => {
     setSelectedExpense(expense);
     setModalVisible(true);
   };
-  console.log("expense", state.expenses);
 
   return (
     <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       {/* <Header title="View Expenses" /> */}
       <View style={styles.content}>
-        <Text style={styles.title}>Expenses</Text>
+        <Text style={styles.title}>Transactions</Text>
         {state.expenses.length === 0 ? (
           <Text>No expenses available</Text>
         ) : (
@@ -133,10 +135,13 @@ const ViewExpensesScreen: React.FC = () => {
           initialSelectedType={
             selectedExpense ? selectedExpense.selectedType || "" : ""
           }
+          initialSelectedDate={
+            selectedExpense ? selectedExpense.selectedDate || "" : ""
+          }
           onEdit={handleEditExpense}
           onDelete={() =>
             handleDeleteExpense(selectedExpense ? selectedExpense.id : "")
-          } // Add null check
+          }
         />
       )}
     </Animated.View>

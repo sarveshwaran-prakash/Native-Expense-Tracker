@@ -29,8 +29,6 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
   expenses,
   handleExpenseOptionPress,
 }) => {
-  console.log("expense.title", expenses);
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {expenses.map((expense) => (
@@ -50,10 +48,9 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
               <Text numberOfLines={1} style={styles.title}>
                 {expense.title}
               </Text>
-              {expense.amount && (
+              {expense.selectedDate && (
                 <Text numberOfLines={1} style={styles.amount}>
-                  {/* {expense.amount} */}
-                  {expense.selectedDate}
+                  {new Date(expense.selectedDate).toDateString()}
                 </Text>
               )}
             </View>
