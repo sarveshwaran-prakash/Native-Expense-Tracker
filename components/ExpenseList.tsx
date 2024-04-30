@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-interface Expense {
+export interface Expense {
   id: string;
   title: string;
   amount?: string;

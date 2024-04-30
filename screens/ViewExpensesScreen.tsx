@@ -11,6 +11,8 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Header from "../components/Header";
 import ExpenseModal from "../modals/ExpenseModal";
 import ExpenseList from "../components/ExpenseList";
+import { computeTotalAll, computeTotalAmount } from "../utils/ExpenseUtils";
+import { filterExpenses, hasNoData } from "../utils/FilterUtils";
 
 interface Expense {
   id: string;
@@ -45,13 +47,7 @@ const ViewExpensesScreen: React.FC = () => {
 
   useEffect(() => {
     // Filter expenses based on the selected filter
-    if (filter === "") {
-      setFilteredExpenses(state.expenses);
-    } else {
-      setFilteredExpenses(
-        state.expenses.filter((expense) => expense.selectedType === filter)
-      );
-    }
+    setFilteredExpenses(filterExpenses(state.expenses, filter));
   }, [state.expenses, filter]);
 
   const handleDeleteExpense = async (id: string) => {
@@ -159,23 +155,31 @@ const ViewExpensesScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
         <Text style={styles.title}>Transactions</Text>
-        {filter === "Income" &&
-          filteredExpenses.filter(
-            (expense) => expense.selectedType === "Income"
-          ).length === 0 && <Text>No income data available</Text>}
-        {filter === "Expense" &&
-          filteredExpenses.filter(
-            (expense) => expense.selectedType === "Expense"
-          ).length === 0 && <Text>No expense data available</Text>}
-        {filter === "" && filteredExpenses.length === 0 && (
-          <Text>No transactions available</Text>
-        )}
+        {hasNoData(filteredExpenses, filter) && <Text>No data available</Text>}
         {filteredExpenses.length > 0 && (
           <ExpenseList
             expenses={filteredExpenses}
             handleExpenseOptionPress={handleExpenseOptionPress}
             handleDeleteExpense={handleDeleteExpense}
           />
+        )}
+        {filteredExpenses.length > 0 && filter === "" && (
+          <Text style={styles.total}>
+            Total: {computeTotalAll(filteredExpenses)}
+          </Text>
+        )}
+        {/* Display total amount for Income */}
+        {filteredExpenses.length > 0 && filter === "Income" && (
+          <Text style={styles.total}>
+            Total Income: {computeTotalAmount(filteredExpenses, "Income")}
+          </Text>
+        )}
+
+        {/* Display total amount for Expense */}
+        {filteredExpenses.length > 0 && filter === "Expense" && (
+          <Text style={styles.total}>
+            Total Expense: {computeTotalAmount(filteredExpenses, "Expense")}
+          </Text>
         )}
       </View>
       {selectedExpense && (
@@ -229,6 +233,12 @@ const styles = StyleSheet.create({
   },
   activeFilter: {
     backgroundColor: "blue",
+  },
+  total: {
+    fontWeight: "bold",
+    // marginTop: 10,
+    marginLeft: 300,
+    color: "green", // Adjust color as needed
   },
 });
 
