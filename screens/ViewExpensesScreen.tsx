@@ -24,6 +24,8 @@ const ViewExpensesScreen: React.FC = () => {
   const { state, dispatch } = useExpenseContext();
   const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [filteredExpenses, setFilteredExpenses] = useState<Expense[]>([]);
+  const [filter, setFilter] = useState<string>(""); // State to hold the filter type
 
   const navigation = useNavigation();
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -40,6 +42,17 @@ const ViewExpensesScreen: React.FC = () => {
       };
     }, [])
   );
+
+  useEffect(() => {
+    // Filter expenses based on the selected filter
+    if (filter === "") {
+      setFilteredExpenses(state.expenses);
+    } else {
+      setFilteredExpenses(
+        state.expenses.filter((expense) => expense.selectedType === filter)
+      );
+    }
+  }, [state.expenses, filter]);
 
   const handleDeleteExpense = async (id: string) => {
     try {
@@ -111,16 +124,55 @@ const ViewExpensesScreen: React.FC = () => {
     setModalVisible(true);
   };
 
+  const handleFilter = (type: string) => {
+    setFilter(type);
+  };
+
   return (
     <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       {/* <Header title="View Expenses" /> */}
       <View style={styles.content}>
+        <View style={styles.filterContainer}>
+          <TouchableOpacity
+            style={[styles.filterButton, filter === "" && styles.activeFilter]}
+            onPress={() => handleFilter("")}
+          >
+            <Text style={styles.filterButtonText}>All</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.filterButton,
+              filter === "Income" && styles.activeFilter,
+            ]}
+            onPress={() => handleFilter("Income")}
+          >
+            <Text style={styles.filterButtonText}>Income</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.filterButton,
+              filter === "Expense" && styles.activeFilter,
+            ]}
+            onPress={() => handleFilter("Expense")}
+          >
+            <Text style={styles.filterButtonText}>Expense</Text>
+          </TouchableOpacity>
+        </View>
         <Text style={styles.title}>Transactions</Text>
-        {state.expenses.length === 0 ? (
-          <Text>No expenses available</Text>
-        ) : (
+        {filter === "Income" &&
+          filteredExpenses.filter(
+            (expense) => expense.selectedType === "Income"
+          ).length === 0 && <Text>No income data available</Text>}
+        {filter === "Expense" &&
+          filteredExpenses.filter(
+            (expense) => expense.selectedType === "Expense"
+          ).length === 0 && <Text>No expense data available</Text>}
+        {filter === "" && filteredExpenses.length === 0 && (
+          <Text>No transactions available</Text>
+        )}
+        {filteredExpenses.length > 0 && (
           <ExpenseList
-            expenses={state.expenses}
+            expenses={filteredExpenses}
             handleExpenseOptionPress={handleExpenseOptionPress}
             handleDeleteExpense={handleDeleteExpense}
           />
@@ -160,6 +212,23 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 20,
+  },
+  filterContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  filterButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  filterButtonText: {
+    fontWeight: "bold",
+  },
+  activeFilter: {
+    backgroundColor: "blue",
   },
 });
 
