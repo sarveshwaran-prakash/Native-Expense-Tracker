@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Text,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -57,6 +58,26 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
           <TouchableOpacity onPress={onClose} style={styles.closeButton}>
             <FontAwesome name="times" size={24} color="black" />
           </TouchableOpacity>
+          <View style={styles.switchContainer}>
+            <TouchableOpacity
+              style={[
+                styles.typeButton,
+                editedSelectedType === "Income" && styles.selectedTypeButton,
+              ]}
+              onPress={() => setEditedSelectedType("Income")}
+            >
+              <Text style={styles.buttonText}>Income</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.typeButton,
+                editedSelectedType === "Expense" && styles.selectedTypeButton,
+              ]}
+              onPress={() => setEditedSelectedType("Expense")}
+            >
+              <Text style={styles.buttonText}>Expense</Text>
+            </TouchableOpacity>
+          </View>
           <TextInput
             style={styles.input}
             value={editedExpense}
@@ -91,6 +112,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  switchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    marginBottom: 10,
+  },
+  selectedTypeButton: {
+    backgroundColor: "#81b0ff",
+  },
+  typeButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "#ccc",
+  },
+  buttonText: {
+    fontSize: 16,
   },
   modalView: {
     width: width * 0.8,
