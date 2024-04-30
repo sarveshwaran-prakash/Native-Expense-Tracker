@@ -86,8 +86,9 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
             style={styles.input}
             value={amount}
             onChangeText={(text) => {
-              const numericValue = text.replace(/[^0-9]/g, "");
-              setAmount(numericValue);
+              const numericValue = text.replace(/[^0-9.]/g, "");
+              const decimalValue = numericValue.replace(/(\..*)\./g, "$1");
+              setAmount(decimalValue);
             }}
             placeholder="Enter amount"
             keyboardType="numeric"

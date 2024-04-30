@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 10,
     padding: 10,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 5,
     width: width * 0.9,
     alignSelf: "center",
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     borderColor: "red",
   },
   expenseIncomeType: {
-    borderColor: "#007bff",
+    borderColor: "green",
   },
 });
 

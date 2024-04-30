@@ -67,8 +67,9 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
             style={[styles.input]}
             value={editedAmount}
             onChangeText={(text) => {
-              const numericValue = text.replace(/[^0-9]/g, "");
-              setEditedAmount(numericValue);
+              const numericValue = text.replace(/[^0-9.]/g, "");
+              const decimalValue = numericValue.replace(/(\..*)\./g, "$1");
+              setEditedAmount(decimalValue);
             }}
             placeholder="Update amount"
             keyboardType="numeric"
