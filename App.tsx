@@ -15,7 +15,7 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen
-            name="Add Expense"
+            name="Add Transactions"
             component={AddExpenseScreen}
             options={{
               tabBarIcon: ({ color }) => (
@@ -24,7 +24,7 @@ export default function App() {
             }}
           />
           <Tab.Screen
-            name="View Expenses"
+            name="View Transactions"
             component={ViewExpensesScreen}
             options={{
               tabBarIcon: ({ color }) => (

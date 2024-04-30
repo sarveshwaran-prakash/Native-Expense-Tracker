@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const { width, height } = Dimensions.get("window");
 
@@ -19,7 +20,13 @@ interface EditExpenseModalProps {
   expense?: string;
   amount?: string;
   selectedType: string;
-  onSave: (expense: string, amount: string, selectedType: string) => void;
+  selectedDate: string;
+  onSave: (
+    expense: string,
+    amount: string,
+    selectedType: string,
+    selectedDate: string
+  ) => void;
 }
 
 const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
@@ -28,6 +35,7 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   expense: initialExpense,
   amount: initialAmount,
   selectedType: initialSelectedType,
+  selectedDate: initialSelectedDate,
   onSave,
 }) => {
   const [editedExpense, setEditedExpense] = useState(initialExpense || "");
@@ -35,6 +43,10 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   const [editedSelectedType, setEditedSelectedType] = useState(
     initialSelectedType || ""
   );
+  const [editSelectedDate, setEditSelectedDate] = useState(
+    initialSelectedDate || ""
+  );
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
     setEditedExpense(initialExpense || "");
@@ -42,9 +54,26 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   }, [initialExpense, initialAmount]);
 
   const handleSave = () => {
-    onSave(editedExpense, editedAmount, editedSelectedType);
+    onSave(editedExpense, editedAmount, editedSelectedType, editSelectedDate);
     onClose();
   };
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      // Convert the selectedDate to a string format you desire
+      const dateString = selectedDate.toISOString(); // For example: "2024-04-30T12:00:00.000Z"
+      setEditSelectedDate(dateString);
+    }
+  };
+
+  const showDatePickerModal = () => {
+    setShowDatePicker(true);
+  };
+
+  const clearDate = () => {
+    setEditSelectedDate("");
+  };
+  console.log("editDate", editSelectedDate);
 
   return (
     <Modal
@@ -95,6 +124,35 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
             placeholder="Update amount"
             keyboardType="numeric"
           />
+          <View style={[styles.dateContainer, styles.input]}>
+            <TouchableOpacity
+              style={styles.inputContainer}
+              onPress={showDatePickerModal}
+            >
+              <TextInput
+                style={styles.input}
+                placeholder="Pick your date"
+                editable={false}
+                value={editSelectedDate ? editSelectedDate : ""}
+              />
+              <MaterialIcons name="event" size={24} color="black" />
+            </TouchableOpacity>
+            {editSelectedDate && (
+              <TouchableOpacity style={styles.clearButton} onPress={clearDate}>
+                <Ionicons name="close" size={20} color="gray" />
+              </TouchableOpacity>
+            )}
+            {showDatePicker && (
+              <DateTimePicker
+                value={
+                  editSelectedDate ? new Date(editSelectedDate) : new Date()
+                }
+                mode="date"
+                display="default"
+                onChange={handleDateChange}
+              />
+            )}
+          </View>
           <Button
             title="Save"
             onPress={handleSave}
@@ -122,6 +180,8 @@ const styles = StyleSheet.create({
   },
   selectedTypeButton: {
     backgroundColor: "#81b0ff",
+    borderColor: "black",
+    borderWidth: 1,
   },
   typeButton: {
     paddingHorizontal: 20,
@@ -164,6 +224,19 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
+  },
+  dateContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  inputContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingRight: 10,
+  },
+  clearButton: {
+    marginLeft: 10,
   },
 });
 

@@ -81,6 +81,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
           amount={initialAmount}
           selectedType={initialSelectedType}
           onSave={handleSaveEdit}
+          selectedDate={""}
         />
       )}
     </Modal>

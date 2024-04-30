@@ -11,6 +11,7 @@ interface Expense {
   title: string;
   amount?: string; // Make amount optional
   selectedType: string;
+  selectedDate: string;
 }
 
 interface State {

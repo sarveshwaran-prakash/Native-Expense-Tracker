@@ -21,6 +21,7 @@ interface ExpenseInputModalProps {
     title: string;
     amount: string;
     selectedType: string;
+    selectedDate: string | null;
   }) => void;
 }
 
@@ -36,7 +37,10 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
   const [selectedType, setSelectedType] = useState("Income");
 
   const handleAddExpense = () => {
-    onAddExpense({ title, amount, selectedType });
+    const formattedDate = selectedDate
+      ? new Date(selectedDate).toDateString()
+      : null;
+    onAddExpense({ title, amount, selectedType, selectedDate: formattedDate });
     setTitle("");
     setAmount("");
   };
@@ -60,7 +64,6 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
     selectedType === "Expense"
       ? "Enter expense description"
       : "Enter income description";
-  console.log(selectedDate);
 
   return (
     <Modal
@@ -201,6 +204,8 @@ const styles = StyleSheet.create({
   },
   selectedTypeButton: {
     backgroundColor: "#81b0ff",
+    borderColor: "black",
+    borderWidth: 1,
   },
   buttonText: {
     fontSize: 16,

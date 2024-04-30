@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 interface Expense {
@@ -13,6 +14,7 @@ interface Expense {
   title: string;
   amount?: string;
   selectedType: string;
+  selectedDate: string;
 }
 
 interface ExpenseListProps {
@@ -32,29 +34,35 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {expenses.map((expense) => (
-        <View
+        <TouchableWithoutFeedback
           key={expense.id}
-          style={[
-            styles.expense,
-            expense.selectedType === "Expense"
-              ? styles.expenseExpenseType
-              : styles.expenseIncomeType,
-          ]}
+          onLongPress={() => handleExpenseOptionPress(expense)}
         >
-          <View style={styles.expenseContent}>
-            <Text numberOfLines={1} style={styles.title}>
-              {expense.title}
-            </Text>
-            {expense.amount && (
-              <Text numberOfLines={1} style={styles.amount}>
-                {expense.amount}
+          <View
+            style={[
+              styles.expense,
+              expense.selectedType === "Expense"
+                ? styles.expenseExpenseType
+                : styles.expenseIncomeType,
+            ]}
+          >
+            <View style={styles.expenseContent}>
+              <Text numberOfLines={1} style={styles.title}>
+                {expense.title}
               </Text>
-            )}
+              {expense.amount && (
+                <Text numberOfLines={1} style={styles.amount}>
+                  {/* {expense.amount} */}
+                  {expense.selectedDate}
+                </Text>
+              )}
+            </View>
+            {/* <TouchableOpacity onPress={() => handleExpenseOptionPress(expense)}>
+            <Text style={styles.optionText}>...</Text>
+          </TouchableOpacity> */}
+            <Text style={styles.title}>{expense.amount}</Text>
           </View>
-          <TouchableOpacity onPress={() => handleExpenseOptionPress(expense)}>
-            <Text style={styles.optionText}>Options</Text>
-          </TouchableOpacity>
-        </View>
+        </TouchableWithoutFeedback>
       ))}
     </ScrollView>
   );
@@ -90,9 +98,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "gray",
   },
-  optionText: {
-    marginRight: 10,
-  },
+
   selectedType: {
     fontWeight: "bold",
     fontSize: 16,
