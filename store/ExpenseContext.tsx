@@ -53,15 +53,7 @@ const expenseReducer = (state: State, action: Action): State => {
         ...state,
         expenses: action.payload.expenses,
       };
-    case "UPDATE_EXPENSE":
-      return {
-        ...state,
-        expenses: state.expenses.map((expense) =>
-          expense.id === action.payload.expense.id
-            ? action.payload.expense
-            : expense
-        ),
-      };
+
     default:
       return state;
   }

@@ -9,7 +9,8 @@ import {
   Dimensions,
   Text,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const { width, height } = Dimensions.get("window");
 
@@ -30,6 +31,8 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
 }) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedType, setSelectedType] = useState("Income");
 
   const handleAddExpense = () => {
@@ -37,12 +40,27 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
     setTitle("");
     setAmount("");
   };
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      setSelectedDate(selectedDate);
+    }
+  };
+
+  const showDatePickerModal = () => {
+    setShowDatePicker(true);
+  };
+
+  const clearDate = () => {
+    setSelectedDate(null);
+  };
 
   // Placeholder text based on selected type
   const placeholderText =
     selectedType === "Expense"
       ? "Enter expense description"
       : "Enter income description";
+  console.log(selectedDate);
 
   return (
     <Modal
@@ -93,6 +111,33 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
             placeholder="Enter amount"
             keyboardType="numeric"
           />
+          <View style={[styles.dateContainer, styles.input]}>
+            <TouchableOpacity
+              style={styles.inputContainer}
+              onPress={showDatePickerModal}
+            >
+              <TextInput
+                style={styles.input}
+                placeholder="Pick your date"
+                editable={false}
+                value={selectedDate ? selectedDate.toDateString() : ""}
+              />
+              <MaterialIcons name="event" size={24} color="black" />
+            </TouchableOpacity>
+            {selectedDate && (
+              <TouchableOpacity style={styles.clearButton} onPress={clearDate}>
+                <Ionicons name="close" size={20} color="gray" />
+              </TouchableOpacity>
+            )}
+            {showDatePicker && (
+              <DateTimePicker
+                value={selectedDate || new Date()}
+                mode="date"
+                display="default"
+                onChange={handleDateChange}
+              />
+            )}
+          </View>
           <Button
             title="Add Expense"
             onPress={handleAddExpense}
@@ -159,6 +204,19 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
+  },
+  inputContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingRight: 10,
+  },
+  clearButton: {
+    marginLeft: 10,
+  },
+  dateContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 
