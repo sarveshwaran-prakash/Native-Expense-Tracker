@@ -13,7 +13,7 @@ interface ExpenseModalProps {
     editedSelectedDate: string
   ) => void;
   onDelete: () => void;
-  initialExpense?: string;
+  initialExpense: string;
   initialAmount: string;
   initialSelectedType: string;
   initialSelectedDate: string;

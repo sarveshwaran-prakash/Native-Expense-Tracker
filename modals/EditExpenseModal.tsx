@@ -17,8 +17,8 @@ const { width, height } = Dimensions.get("window");
 interface EditExpenseModalProps {
   visible: boolean;
   onClose: () => void;
-  expense?: string;
-  amount?: string;
+  expense: string;
+  amount: string;
   selectedType: string;
   selectedDate: string;
   onSave: (

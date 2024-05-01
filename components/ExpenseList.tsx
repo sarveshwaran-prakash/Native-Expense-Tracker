@@ -11,7 +11,7 @@ import {
 export interface Expense {
   id: string;
   title: string;
-  amount?: string;
+  amount: string;
   selectedType: string;
   selectedDate: string;
 }
