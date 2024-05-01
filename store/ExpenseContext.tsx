@@ -9,7 +9,7 @@ import React, {
 interface Expense {
   id: string;
   title: string;
-  amount?: string; // Make amount optional
+  amount?: string;
   selectedType: string;
   selectedDate: string;
 }
@@ -68,7 +68,7 @@ export const ExpenseProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await fetch("http://10.0.2.2:3000/expenses"); // Adjust the URL to your API endpoint
+        const response = await fetch("http://10.0.2.2:3000/expenses");
         if (!response.ok) {
           throw new Error("Failed to fetch expenses");
         }

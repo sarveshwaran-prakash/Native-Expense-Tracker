@@ -60,8 +60,7 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   const handleDateChange = (event: any, selectedDate?: Date) => {
     setShowDatePicker(false);
     if (selectedDate) {
-      // Convert the selectedDate to a string format you desire
-      const dateString = selectedDate.toISOString(); // For example: "2024-04-30T12:00:00.000Z"
+      const dateString = selectedDate.toISOString();
       seteditedSelectedDate(dateString);
     }
   };
@@ -73,7 +72,6 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
   const clearDate = () => {
     seteditedSelectedDate("");
   };
-  console.log("editDate", editedSelectedDate);
 
   return (
     <Modal

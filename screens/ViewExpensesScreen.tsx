@@ -16,7 +16,7 @@ import { filterExpenses, hasNoData } from "../utils/FilterUtils";
 interface Expense {
   id: string;
   title: string;
-  amount?: string; // Ensure that amount is optional
+  amount?: string;
   selectedType: string;
   selectedDate: string;
 }
@@ -45,7 +45,6 @@ const ViewExpensesScreen: React.FC = () => {
   );
 
   useEffect(() => {
-    // Filter expenses based on the selected filter
     setFilteredExpenses(filterExpenses(state.expenses, filter));
   }, [state.expenses, filter]);
 
@@ -97,7 +96,6 @@ const ViewExpensesScreen: React.FC = () => {
       );
 
       if (response.ok) {
-        // Update expense state with the edited expense
         const updatedExpenses: Expense[] = state.expenses.map((expense) =>
           expense.id === selectedExpense.id ? updatedExpense : expense
         );
@@ -161,22 +159,6 @@ const ViewExpensesScreen: React.FC = () => {
             handleDeleteExpense={handleDeleteExpense}
           />
         )}
-        {/* {filteredExpenses.length > 0 && filter === "" && (
-          <Text style={styles.total}>
-            Total: {computeTotalAll(filteredExpenses)}
-          </Text>
-        )}
-        {filteredExpenses.length > 0 && filter === "Income" && (
-          <Text style={styles.total}>
-            Total Income: {computeTotalAmount(filteredExpenses, "Income")}
-          </Text>
-        )}
-
-        {filteredExpenses.length > 0 && filter === "Expense" && (
-          <Text style={styles.total}>
-            Total Expense: {computeTotalAmount(filteredExpenses, "Expense")}
-          </Text>
-        )} */}
         {filteredExpenses.length > 0 && filter === "" && (
           <View style={styles.totalContainer}>
             <Text style={styles.total}>
@@ -195,8 +177,8 @@ const ViewExpensesScreen: React.FC = () => {
         <ExpenseModal
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
-          initialExpense={selectedExpense ? selectedExpense.title : ""} // Add null check
-          initialAmount={selectedExpense ? selectedExpense.amount || "" : ""} // Add null check
+          initialExpense={selectedExpense ? selectedExpense.title : ""}
+          initialAmount={selectedExpense ? selectedExpense.amount || "" : ""}
           initialSelectedType={
             selectedExpense ? selectedExpense.selectedType || "" : ""
           }
@@ -243,12 +225,6 @@ const styles = StyleSheet.create({
   activeFilter: {
     backgroundColor: "blue",
   },
-  // total: {
-  //   fontWeight: "bold",
-  //   // marginTop: 10,
-  //   marginLeft: 300,
-  //   color: "green", // Adjust color as needed
-  // },
   totalContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -256,7 +232,7 @@ const styles = StyleSheet.create({
   total: {
     fontWeight: "bold",
     color: "green",
-    marginRight: 20, // Add spacing between each total
+    marginRight: 20,
   },
 });
 

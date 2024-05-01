@@ -2,7 +2,6 @@ import React from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
   Dimensions,
   ScrollView,
@@ -54,9 +53,6 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
                 </Text>
               )}
             </View>
-            {/* <TouchableOpacity onPress={() => handleExpenseOptionPress(expense)}>
-            <Text style={styles.optionText}>...</Text>
-          </TouchableOpacity> */}
             <Text style={styles.title}>{expense.amount}</Text>
           </View>
         </TouchableWithoutFeedback>

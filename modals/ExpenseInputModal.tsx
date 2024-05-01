@@ -59,7 +59,6 @@ const ExpenseInputModal: React.FC<ExpenseInputModalProps> = ({
     setSelectedDate(null);
   };
 
-  // Placeholder text based on selected type
   const placeholderText =
     selectedType === "Expense"
       ? "Enter expense description"

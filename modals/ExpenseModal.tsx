@@ -13,7 +13,7 @@ interface ExpenseModalProps {
     editedSelectedDate: string
   ) => void;
   onDelete: () => void;
-  initialExpense?: string; // Make initialExpense optional
+  initialExpense?: string;
   initialAmount: string;
   initialSelectedType: string;
   initialSelectedDate: string;
@@ -42,7 +42,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
     editedSelectedDate: string
   ) => {
     onEdit(editedExpense, editedAmount, editedSelectedType, editedSelectedDate);
-    setEditModalVisible(false); // Close the edit modal after saving edits
+    setEditModalVisible(false);
   };
 
   return (
@@ -70,13 +70,11 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
                 <FontAwesome name="trash" size={20} /> Delete transaction
               </Text>
             </TouchableOpacity>
-            {/* Display initial expense details */}
             <Text>Description {initialExpense}</Text>
             <Text>Amount: {initialAmount}</Text>
           </View>
         </View>
       </TouchableOpacity>
-      {/* Conditionally render EditExpenseModal */}
       {editModalVisible && (
         <EditExpenseModal
           visible={editModalVisible}
