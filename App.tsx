@@ -4,8 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ExpenseProvider } from "./store/ExpenseContext";
 import AddExpenseScreen from "./screens/AddExpenseScreen";
 import ViewExpensesScreen from "./screens/ViewExpensesScreen";
-import { Text } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome"; // for FontAwesome icons
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,24 +12,48 @@ export default function App() {
   return (
     <ExpenseProvider>
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color }) => {
+              let iconName;
+
+              if (route.name === "Add Transactions") {
+                iconName = "plus";
+              } else if (route.name === "View Transactions") {
+                iconName = "list";
+              }
+
+              if (iconName) {
+                return <Icon name={iconName} color={color} size={26} />;
+              }
+
+              return null;
+            },
+            tabBarActiveTintColor: "#3F72AF",
+            tabBarInactiveTintColor: "gray",
+            tabBarStyle: {
+              backgroundColor: "#DBE2EF",
+            },
+            tabBarLabelStyle: {
+              color: "black",
+              fontSize: 15,
+              fontWeight: "600",
+            },
+          })}
+        >
           <Tab.Screen
             name="Add Transactions"
             component={AddExpenseScreen}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <Icon name="plus" color={color} size={26} />
-              ),
-            }}
+            options={() => ({
+              headerStyle: { backgroundColor: "#DBE2EF" },
+            })}
           />
           <Tab.Screen
             name="View Transactions"
             component={ViewExpensesScreen}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <Icon name="list" color={color} size={26} />
-              ),
-            }}
+            options={() => ({
+              headerStyle: { backgroundColor: "#DBE2EF" },
+            })}
           />
         </Tab.Navigator>
       </NavigationContainer>

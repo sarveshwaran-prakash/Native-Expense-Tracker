@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { View, Button, StyleSheet, Text, Animated } from "react-native";
 import { useExpenseContext } from "../store/ExpenseContext";
 import ExpenseInputModal from "../modals/ExpenseInputModal";
+import CustomButton from "../components/CustomButton";
 
 export default function AddExpenseScreen() {
   const { dispatch } = useExpenseContext();
@@ -51,7 +52,12 @@ export default function AddExpenseScreen() {
       ></Animated.View>
       <View style={styles.content}>
         <Text style={styles.title}>Add a New Expense</Text>
-        <Button title="Add Expense" onPress={() => setModalVisible(true)} />
+        <CustomButton
+          title="Add Transactions"
+          // onPress={handleAddExpense}
+          onPress={() => setModalVisible(true)}
+          // disabled={title.trim() === "" || amount.trim() === ""}
+        />
       </View>
       <ExpenseInputModal
         visible={modalVisible}
@@ -65,7 +71,7 @@ export default function AddExpenseScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F9F7F7",
   },
   header: {
     alignItems: "center",
@@ -81,5 +87,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
+    color: "#112D4E",
   },
 });

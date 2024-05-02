@@ -35,14 +35,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
           key={expense.id}
           onLongPress={() => handleExpenseOptionPress(expense)}
         >
-          <View
-            style={[
-              styles.expense,
-              expense.selectedType === "Expense"
-                ? styles.expenseExpenseType
-                : styles.expenseIncomeType,
-            ]}
-          >
+          <View style={[styles.expense]}>
             <View style={styles.expenseContent}>
               <Text numberOfLines={1} style={styles.title}>
                 {expense.title}
@@ -53,7 +46,16 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
                 </Text>
               )}
             </View>
-            <Text style={styles.title}>{expense.amount}</Text>
+            <Text
+              style={[
+                styles.title,
+                expense.selectedType === "Expense"
+                  ? styles.expenseExpenseType
+                  : styles.expenseIncomeType,
+              ]}
+            >
+              {expense.amount}
+            </Text>
           </View>
         </TouchableWithoutFeedback>
       ))}
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: width * 0.9,
     alignSelf: "center",
+    borderColor: "#3F72AF",
   },
   expenseContent: {
     flex: 1,
@@ -98,10 +101,10 @@ const styles = StyleSheet.create({
     right: 90,
   },
   expenseExpenseType: {
-    borderColor: "red",
+    color: "red",
   },
   expenseIncomeType: {
-    borderColor: "green",
+    color: "green",
   },
 });
 

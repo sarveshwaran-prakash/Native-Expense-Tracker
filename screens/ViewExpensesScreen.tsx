@@ -201,6 +201,7 @@ const ViewExpensesScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#F9F7F7",
   },
   content: {
     flex: 1,
@@ -210,6 +211,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 20,
+    color: "#112D4E",
   },
   filterContainer: {
     flexDirection: "row",
@@ -219,14 +221,15 @@ const styles = StyleSheet.create({
   filterButton: {
     paddingHorizontal: 20,
     paddingVertical: 10,
-    borderWidth: 1,
+    // borderWidth: 0.5,
     borderRadius: 5,
+    backgroundColor: "#D2DAFF",
   },
   filterButtonText: {
     fontWeight: "bold",
   },
   activeFilter: {
-    backgroundColor: "blue",
+    backgroundColor: "#3F72AF",
   },
   totalContainer: {
     flexDirection: "row",
@@ -234,8 +237,8 @@ const styles = StyleSheet.create({
   },
   total: {
     fontWeight: "bold",
-    color: "green",
     marginRight: 20,
+    color: "#112D4E",
   },
 });
 

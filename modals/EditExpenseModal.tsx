@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import CustomButton from "../components/CustomButton";
 
 const { width, height } = Dimensions.get("window");
 
@@ -151,7 +152,7 @@ const EditExpenseModal: React.FC<EditExpenseModalProps> = ({
               />
             )}
           </View>
-          <Button
+          <CustomButton
             title="Save"
             onPress={handleSave}
             disabled={!editedExpense?.trim()}
@@ -167,7 +168,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   switchContainer: {
     flexDirection: "row",
@@ -177,8 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   selectedTypeButton: {
-    backgroundColor: "#81b0ff",
-    borderColor: "black",
+    backgroundColor: "#3F72AF",
     borderWidth: 1,
   },
   typeButton: {
@@ -194,7 +193,7 @@ const styles = StyleSheet.create({
   modalView: {
     width: width * 0.8,
     maxHeight: height * 0.6,
-    backgroundColor: "white",
+    backgroundColor: "#EEF1FF",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
@@ -205,6 +204,8 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
+    borderWidth: 2,
+    borderColor: "#3F72AF",
     elevation: 5,
   },
   input: {
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#3F72AF",
     borderRadius: 5,
   },
   amountInput: {
