@@ -1,0 +1,25 @@
+{
+  "expenses": [
+    {
+      "id": "890c",
+      "title": "Food",
+      "amount": "600",
+      "selectedType": "Expense",
+      "selectedDate": "2023-04-30T18:30:00.000Z"
+    },
+    {
+      "id": "8d8e",
+      "title": "Heilg",
+      "amount": "700",
+      "selectedType": "Income",
+      "selectedDate": "Wed May 01 2024"
+    }
+  ],
+  "users": [
+    {
+      "id": "7d42",
+      "email": "rrr",
+      "password": "rrr"
+    }
+  ]
+}
