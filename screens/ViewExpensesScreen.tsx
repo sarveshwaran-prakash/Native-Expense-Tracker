@@ -50,9 +50,12 @@ const ViewExpensesScreen: React.FC = () => {
 
   const handleDeleteExpense = async (id: string) => {
     try {
-      const response = await fetch(`http://10.0.2.2:3000/expenses/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://expense-tracker-backend-6bpy.onrender.com/expenses/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
         dispatch({ type: "DELETE_EXPENSE", payload: id });
@@ -85,7 +88,7 @@ const ViewExpensesScreen: React.FC = () => {
       };
 
       const response = await fetch(
-        `http://10.0.2.2:3000/expenses/${selectedExpense.id}`,
+        `https://expense-tracker-backend-6bpy.onrender.com/expenses/${selectedExpense.id}`,
         {
           method: "PUT",
           headers: {

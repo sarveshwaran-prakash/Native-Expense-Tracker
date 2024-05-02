@@ -68,7 +68,9 @@ export const ExpenseProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await fetch("http://10.0.2.2:3000/expenses");
+        const response = await fetch(
+          "https://expense-tracker-backend-6bpy.onrender.com/expenses"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch expenses");
         }

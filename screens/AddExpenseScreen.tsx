@@ -21,13 +21,16 @@ export default function AddExpenseScreen() {
     amount: string;
   }) => {
     try {
-      const response = await fetch("http://10.0.2.2:3000/expenses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(expense),
-      });
+      const response = await fetch(
+        "https://expense-tracker-backend-6bpy.onrender.com/expenses",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(expense),
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to add expense");
       }
